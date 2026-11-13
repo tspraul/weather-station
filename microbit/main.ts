@@ -8,22 +8,38 @@
 //   3. Project Settings (gear icon) -> choose "No Pairing Required".
 //   4. Download to the micro:bit V2 that sits on the weather board.
 //
-// LED screen: a tick = the app is connected, a cross = waiting for the app.
+// LED screen: to save battery the lights stay off. When the app connects or
+// disconnects, a tick or cross shows for 3 seconds. Press button A any time
+// to check: tick = the app is connected, cross = waiting for the app.
 
 let connected = false
 
+function showStatus() {
+    if (connected) {
+        basic.showIcon(IconNames.Yes)
+    } else {
+        basic.showIcon(IconNames.No)
+    }
+    basic.pause(3000)
+    basic.clearScreen()
+}
+
 bluetooth.onBluetoothConnected(function () {
     connected = true
-    basic.showIcon(IconNames.Yes)
+    showStatus()
 })
 
 bluetooth.onBluetoothDisconnected(function () {
     connected = false
-    basic.showIcon(IconNames.No)
+    showStatus()
+})
+
+input.onButtonPressed(Button.A, function () {
+    showStatus()
 })
 
 bluetooth.startUartService()
-basic.showIcon(IconNames.No)
+showStatus()
 
 // Same sensor protocol the DFRobot extension uses: write 8 to address 0x10,
 // then read 22 bytes. Values are built the same way the extension builds them.

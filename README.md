@@ -24,7 +24,7 @@ The app has three pages, in English and Chinese:
 3. **Extensions** → add **bluetooth**. If it asks to remove **radio**, say yes.
 4. Gear icon → **Project Settings** → choose **No Pairing Required** → Save.
 5. **Download** and copy the file to the micro:bit V2.
-6. Plug the micro:bit into the weather board. The lights show a **✗** until the app connects, then a **✓**.
+6. Plug the micro:bit into the weather board. It shows **✗** for 3 seconds, then its lights turn off to save battery. Press **button A** any time to check: **✓** = connected to the app, **✗** = waiting.
 
 > Don't add the DFRobot "Environment Science" extension. It needs radio, which can't run alongside Bluetooth. The program reads the board's sensors directly.
 
@@ -34,7 +34,7 @@ The app has three pages, in English and Chinese:
    **https://github.com/tspraul/weather-station/releases/latest/download/weather-station.apk**
 2. Open the downloaded file and tap **Install**. If asked, allow installing from Chrome.
 3. Open **Weather Station** and tap **Allow** for Bluetooth (and notifications, if asked).
-4. **First test:** hold the board near the panel. Within a minute the status turns green (**Connected 已连接**) and the micro:bit shows ✓.
+4. **First test:** hold the board near the panel. Within a minute the status turns green (**Connected 已连接**) and pressing button A on the micro:bit shows ✓.
 5. Move the board to its window or outside spot and check the status stays green.
 
 After that the app remembers this micro:bit, keeps listening in the background and starts again on its own when the panel is switched on.
@@ -52,7 +52,7 @@ After that the app remembers this micro:bit, keeps listening in the background a
 
 | What you see | Try this |
 |---|---|
-| *Looking for the board…* | Check the micro:bit has power and shows ✗. Make sure it is running the weather program (step 1). |
+| *Looking for the board…* | Check the micro:bit has power (press button A: it should show ✗ or ✓). Make sure it is running the weather program (step 1). |
 | *Bluetooth is off* | Tap **Turn on Bluetooth** on the Now page. |
 | *Needs Bluetooth permission* | Tap **Allow Bluetooth**, or Android Settings → Apps → Weather Station → Permissions. |
 | On older Android, still searching | Turn on **Location** in Android settings. Android 11 and older needs it for Bluetooth searching. |

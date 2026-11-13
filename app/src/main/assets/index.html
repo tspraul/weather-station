@@ -42,8 +42,7 @@ main{flex:1;overflow:auto;padding:28px 32px 40px}
 .card.temp{grid-row:span 2;background:var(--warm-soft);border-color:#f3c8b3;justify-content:center}
 .card.temp .val{font-size:170px;color:var(--warm)}
 .card.temp .val small{font-size:70px;color:var(--warm)}
-.card.hum{background:var(--blue-soft);border-color:#bcd3f1}
-.card.hum .val{color:var(--blue)}
+.card.wide{grid-column:span 2}
 .updated{margin-top:18px;font-size:20px;color:var(--muted)}
 .help{margin-top:22px;background:var(--amber-soft);border:2px solid #f0d58f;border-radius:18px;padding:18px 24px;font-size:21px;display:none}
 .help b{display:block;font-size:24px;margin-bottom:6px}
@@ -115,12 +114,7 @@ footer a{color:#8a8a95}
         <div class="val" id="vT">--<small>°C</small></div>
         <div class="hint" id="vTf"></div>
       </div>
-      <div class="card hum">
-        <div class="label">Humidity <span class="zh">湿度</span></div>
-        <div class="val" id="vH">--<small>%</small></div>
-        <div class="hint">How much water is in the air 空气中的水汽</div>
-      </div>
-      <div class="card">
+      <div class="card wide">
         <div class="label">Air pressure <span class="zh">气压</span></div>
         <div class="val" id="vP">--<small>kPa</small></div>
         <div class="hint">Falling pressure can mean rain is coming 气压下降可能要下雨</div>
@@ -156,7 +150,14 @@ footer a{color:#8a8a95}
       <div class="ctl"><span class="cap">Show 显示</span>
         <div class="seg" id="tKind">
           <button data-v="days" class="on">Each day <span class="zh">每天</span></button>
-          <button data-v="hours">Today by hour <span class="zh">今天每小时</span></button>
+          <button data-v="hours">By hour <span class="zh">每小时</span></button>
+        </div>
+      </div>
+      <div class="ctl" id="tDayCtl" style="display:none"><span class="cap">Which day 哪一天</span>
+        <div class="seg">
+          <button id="dayPrev">‹ Earlier 前一天</button>
+          <button id="dayLabel" style="min-width:230px;cursor:default"></button>
+          <button id="dayNext">Later 后一天 ›</button>
         </div>
       </div>
       <div class="ctl" id="tCountCtl"><span class="cap">How many days 天数</span>
@@ -286,6 +287,9 @@ function seg(id) {
     render();
   };
 }
+var hourOffset = 0;
+$("dayPrev").onclick = function () { if (hourOffset < 60) { hourOffset++; renderTable(); } };
+$("dayNext").onclick = function () { if (hourOffset > 0) { hourOffset--; renderTable(); } };
 ["tKind", "tCount", "tWeek", "gMeasure", "gCount", "gScale", "gBars"].forEach(seg);
 
 // ---------- sky buttons ----------
@@ -349,7 +353,6 @@ function renderNow() {
   var fresh = s.time && (s.now - s.time) < 30 * 60000;
   $("vT").innerHTML = (s.t != null ? Math.round(s.t) : "--") + "<small>°C</small>";
   $("vTf").textContent = s.t != null ? fmt1(s.t) + " °C" : "";
-  $("vH").innerHTML = (s.h != null ? Math.round(s.h) : "--") + "<small>%</small>";
   $("vP").innerHTML = fmt1(s.p) + "<small>kPa</small>";
   $("vU").textContent = s.u != null ? Math.round(s.u) : "--";
   $("vUh").textContent = uvWord(s.u);
@@ -369,7 +372,7 @@ function renderNow() {
     addBtn("Allow Bluetooth 允许", function () { Weather.fixPermissions(); }, true);
   } else if (s.state !== "connected" && !s.savedBoard) {
     title = "Looking for the weather board 正在寻找气象板";
-    text = "Check that the micro:bit on the weather board has power and shows a ✗ on its lights. Keep it close to the panel the first time.";
+    text = "Check that the micro:bit on the weather board has power: press its button A and it should show ✗ or ✓. Keep it close to the panel the first time.";
   } else if (s.state !== "connected" && s.time && s.now - s.time > 5 * 60000) {
     title = "Can't hear the weather board 收不到气象板的信号";
     text = "Check the board's battery, or move it a little closer to the panel.";
@@ -421,21 +424,26 @@ function renderTable() {
   var hours = opts.tKind === "hours";
   $("tCountCtl").style.display = hours ? "none" : "";
   $("tWeekCtl").style.display = hours ? "none" : "";
+  $("tDayCtl").style.display = hours ? "" : "none";
   var html = "";
   if (hours) {
-    var rows = parse(Weather.log(1), []), today = ymd(new Date()), seen = {};
+    var day = new Date(); day.setHours(12, 0, 0, 0); day.setDate(day.getDate() - hourOffset);
+    var key = ymd(day);
+    $("dayLabel").textContent = hourOffset === 0 ? "Today 今天 · " + shortDate(key) : niceDate(key);
+    $("dayNext").disabled = hourOffset === 0;
+    $("dayNext").style.opacity = hourOffset === 0 ? 0.35 : 1;
+    var rows = parse(Weather.log(hourOffset + 2), []), seen = {};
     var list = [];
     rows.forEach(function (r) {
-      var d = new Date(r[0]);
-      if (ymd(d) !== today || d.getMinutes() >= 10) return;  // one reading at the start of each hour
-      if (d.getHours() < 7 || d.getHours() > 17 || seen[d.getHours()]) return;
-      seen[d.getHours()] = 1; list.push([d.getHours(), r[1], r[2]]);
+      var d = new Date(r[0]), hr = d.getHours();
+      if (ymd(d) !== key || hr < 7 || hr > 17 || seen[hr]) return;  // first reading in each hour
+      seen[hr] = 1; list.push([hr, r[1], r[2]]);
     });
-    if (!list.length) { out.innerHTML = '<div class="empty">No readings today yet. 今天还没有读数。</div>'; note.textContent = ""; return; }
+    if (!list.length) { out.innerHTML = '<div class="empty">No readings for this day. 这一天没有读数。</div>'; note.textContent = ""; return; }
     html = "<table><tr><th>Time<span>时间</span></th><th>Temperature (°C)<span>气温</span></th><th>Humidity (%)<span>湿度</span></th></tr>";
     list.forEach(function (r) { html += "<tr><td>" + r[0] + ":00</td><td>" + Math.round(r[1]) + "</td><td>" + Math.round(r[2]) + "</td></tr>"; });
     out.innerHTML = html + "</table>";
-    note.textContent = "Readings at the start of each hour, rounded to whole numbers. 每小时整点的读数，四舍五入到整数。";
+    note.textContent = "The first reading in each hour from 7:00 to 17:00, rounded to whole numbers. 7:00–17:00 每小时的第一个读数，四舍五入到整数。";
     return;
   }
   var days = dayRows(+opts.tCount, opts.tWeek === "school");
