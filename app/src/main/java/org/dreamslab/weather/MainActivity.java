@@ -98,8 +98,10 @@ public class MainActivity extends Activity {
 
         @JavascriptInterface public String status() { return WeatherStore.get(ctx).statusJson(); }
         @JavascriptInterface public String log(int days) { return WeatherStore.get(ctx).logJson(days); }
-        @JavascriptInterface public String sky() { return WeatherStore.get(ctx).skyJson(); }
-        @JavascriptInterface public void setSky(String date, String sky) { WeatherStore.get(ctx).setSky(date, sky); }
+        @JavascriptInterface public String sky() { return WeatherStore.get(ctx).obsJson("sky"); }
+        @JavascriptInterface public void setSky(String date, String v) { WeatherStore.get(ctx).setObs("sky", date, v); }
+        @JavascriptInterface public String wind() { return WeatherStore.get(ctx).obsJson("wind"); }
+        @JavascriptInterface public void setWind(String date, String v) { WeatherStore.get(ctx).setObs("wind", date, v); }
         @JavascriptInterface public String csv() { return WeatherStore.get(ctx).logCsv(); }
         @JavascriptInterface public String version() { return BuildConfigInfo.version(ctx); }
 

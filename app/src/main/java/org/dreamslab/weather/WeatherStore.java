@@ -179,23 +179,22 @@ public final class WeatherStore {
         return sb.toString();
     }
 
-    // ----- Sky observations (one per date, "yyyy-MM-dd" -> "sunny" etc.) -----
+    // ----- Student observations, one per date ("yyyy-MM-dd" -> "sunny", "breeze", ...) -----
 
-    public synchronized String skyJson() {
+    public synchronized String obsJson(String kind) {
         try {
-            JSONObject o = new JSONObject(prefs.getString("sky", "{}"));
-            return o.toString();
+            return new JSONObject(prefs.getString(kind, "{}")).toString();
         } catch (Exception e) {
             return "{}";
         }
     }
 
-    public synchronized void setSky(String date, String sky) {
+    public synchronized void setObs(String kind, String date, String value) {
         try {
-            JSONObject o = new JSONObject(prefs.getString("sky", "{}"));
-            if (sky == null || sky.length() == 0) o.remove(date);
-            else o.put(date, sky);
-            prefs.edit().putString("sky", o.toString()).apply();
+            JSONObject o = new JSONObject(prefs.getString(kind, "{}"));
+            if (value == null || value.length() == 0) o.remove(date);
+            else o.put(date, value);
+            prefs.edit().putString(kind, o.toString()).apply();
         } catch (Exception ignored) { }
     }
 

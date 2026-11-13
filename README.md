@@ -11,8 +11,8 @@ The app has three pages, in English and Chinese:
 
 | Page | What students do |
 |---|---|
-| **Now 现在** | See the current readings and pick today's sky (sunny, cloudy, rainy…) |
-| **Table 表格** | Read daily highs, lows and humidity, or today hour by hour, and copy them into their own tables |
+| **Now 现在** | See temperature, humidity, UV and light, and pick today's sky and wind (calm, light breeze, windy, very windy) |
+| **Table 表格** | Read daily sky, wind, highs, lows and humidity, or any day hour by hour, and copy them into their own tables |
 | **Graph 图表** | Choose what to graph, how many days and the scale (1, 2, 5 or 10 per line). Bars can be shown, shown with numbers, or left blank so students draw them with the MAXHUB pen |
 
 ---

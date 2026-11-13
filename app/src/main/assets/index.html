@@ -43,6 +43,8 @@ main{flex:1;overflow:auto;padding:28px 32px 40px}
 .card.temp .val{font-size:170px;color:var(--warm)}
 .card.temp .val small{font-size:70px;color:var(--warm)}
 .card.wide{grid-column:span 2}
+.card.hum{background:var(--blue-soft);border-color:#bcd3f1}
+.card.hum .val{color:var(--blue)}
 .updated{margin-top:18px;font-size:20px;color:var(--muted)}
 .help{margin-top:22px;background:var(--amber-soft);border:2px solid #f0d58f;border-radius:18px;padding:18px 24px;font-size:21px;display:none}
 .help b{display:block;font-size:24px;margin-bottom:6px}
@@ -50,11 +52,13 @@ main{flex:1;overflow:auto;padding:28px 32px 40px}
 .btn{border:2px solid var(--ink);background:var(--card);border-radius:12px;padding:10px 20px;font-size:21px;font-weight:600}
 .btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
 
-.skybox{margin-top:22px;background:var(--card);border:2px solid var(--line);border-radius:22px;padding:20px 28px}
+.obsrow{margin-top:22px;display:flex;gap:22px;align-items:stretch}
+.skybox{flex:auto;background:var(--card);border:2px solid var(--line);border-radius:22px;padding:20px 28px}
 .skybox h2{margin:0 0 14px;font-size:26px}
 .skies{display:flex;gap:14px;flex-wrap:wrap}
-.sky{border:3px solid var(--line);background:var(--card);border-radius:18px;padding:12px 18px;min-width:150px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:21px;font-weight:600}
-.sky .ic{font-size:52px;line-height:1.1}
+.sky{border:3px solid var(--line);background:var(--card);border-radius:18px;padding:10px 12px;min-width:118px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:21px;font-weight:600}
+.sky .ic{font-size:46px;line-height:1.1}
+.sky .tip{font-size:15px;font-weight:500;color:var(--muted)}
 .sky .zh{font-size:19px}
 .sky.on{border-color:var(--blue);background:var(--blue-soft)}
 
@@ -114,10 +118,10 @@ footer a{color:#8a8a95}
         <div class="val" id="vT">--<small>°C</small></div>
         <div class="hint" id="vTf"></div>
       </div>
-      <div class="card wide">
-        <div class="label">Air pressure <span class="zh">气压</span></div>
-        <div class="val" id="vP">--<small>kPa</small></div>
-        <div class="hint">Falling pressure can mean rain is coming 气压下降可能要下雨</div>
+      <div class="card hum wide">
+        <div class="label">Humidity <span class="zh">湿度</span></div>
+        <div class="val" id="vH">--<small>%</small></div>
+        <div class="hint">How much water is in the air 空气中的水汽</div>
       </div>
       <div class="card">
         <div class="label">UV <span class="zh">紫外线</span></div>
@@ -138,9 +142,15 @@ footer a{color:#8a8a95}
       <div class="btns" id="helpBtns"></div>
     </div>
 
-    <div class="skybox">
-      <h2>What is the sky like today? <span class="zh">今天的天空是什么样的？</span></h2>
-      <div class="skies" id="skiesNow"></div>
+    <div class="obsrow">
+      <div class="skybox">
+        <h2>What is the sky like today? <span class="zh">今天的天空是什么样的？</span></h2>
+        <div class="skies" id="skiesNow"></div>
+      </div>
+      <div class="skybox" style="flex:none">
+        <h2>How windy is it? <span class="zh">风大吗？</span></h2>
+        <div class="skies" id="windNow"></div>
+      </div>
     </div>
   </section>
 
@@ -185,6 +195,7 @@ footer a{color:#8a8a95}
           <button data-v="low">Lowest temp <span class="zh">最低气温</span></button>
           <button data-v="hum">Humidity <span class="zh">湿度</span></button>
           <button data-v="sky">Sky <span class="zh">天空</span></button>
+          <button data-v="wind">Wind <span class="zh">风</span></button>
         </div>
       </div>
       <div class="ctl" id="gCountCtl"><span class="cap">How many days 天数</span>
@@ -238,12 +249,15 @@ if (!window.Weather) {
       rows.push([t, +temp.toFixed(1), +(55 - 15 * Math.sin((hr - 9) / 24 * 2 * Math.PI) + 10 * Math.cos(day)).toFixed(1), 101.2, hr > 7 && hr < 18 ? 2.1 : 0, hr > 7 && hr < 18 ? 600 : 3]);
     }
     var skyNames = ["sunny", "partly", "cloudy", "rainy", "sunny", "foggy"], sky = {};
-    for (var i = 1; i < 15; i++) { var k = new Date(now - i * 86400000); sky[ymd(k)] = skyNames[i % 6]; }
+    var windNames = ["calm", "breeze", "breeze", "windy", "strong"], wind = {};
+    for (var i = 1; i < 15; i++) { var k = new Date(now - i * 86400000); sky[ymd(k)] = skyNames[i % 6]; wind[ymd(k)] = windNames[i % 5]; }
     var last = rows[rows.length - 1];
     return {
       status: function () { return JSON.stringify({ state: "connected", board: "BBC micro:bit [demo]", savedBoard: true, time: last[0], now: Date.now(), t: last[1], h: last[2], p: last[3], u: last[4], l: last[5] }); },
       log: function (days) { var s = Date.now() - days * 86400000; return JSON.stringify(rows.filter(function (r) { return r[0] >= s; })); },
       sky: function () { return JSON.stringify(sky); },
+      wind: function () { return JSON.stringify(wind); },
+      setWind: function (d, s) { if (s) wind[d] = s; else delete wind[d]; },
       setSky: function (d, s) { if (s) sky[d] = s; else delete sky[d]; },
       csv: function () { return ""; }, version: function () { return "demo"; },
       forgetBoard: function () {}, fixPermissions: function () {}, turnOnBluetooth: function () {}
@@ -259,7 +273,19 @@ var SKIES = [
   { id: "snowy",  ic: "❄️", en: "Snowy",         zh: "雪天" },
   { id: "foggy",  ic: "🌫️", en: "Foggy / hazy",  zh: "雾 / 霾" }
 ];
-function skyById(id) { for (var i = 0; i < SKIES.length; i++) if (SKIES[i].id === id) return SKIES[i]; return null; }
+var WINDS = [
+  { id: "calm",   ic: "🌳", en: "Calm",         zh: "无风", tip: "Leaves still 树叶不动" },
+  { id: "breeze", ic: "🍃", en: "Light breeze", zh: "微风", tip: "Leaves move 树叶动" },
+  { id: "windy",  ic: "💨", en: "Windy",        zh: "有风", tip: "Branches move 树枝摇" },
+  { id: "strong", ic: "🌬️", en: "Very windy",   zh: "大风", tip: "Whole trees sway 大树摇" }
+];
+// Two things students observe each day, each saved per date.
+var OBS = {
+  sky:  { list: SKIES, en: "Sky",  zh: "天空", load: function () { return parse(Weather.sky(), {}); },  save: function (d, v) { Weather.setSky(d, v); } },
+  wind: { list: WINDS, en: "Wind", zh: "风",   load: function () { return parse(Weather.wind ? Weather.wind() : "{}", {}); }, save: function (d, v) { if (Weather.setWind) Weather.setWind(d, v); } }
+};
+function obsItem(kind, id) { var l = OBS[kind].list; for (var i = 0; i < l.length; i++) if (l[i].id === id) return l[i]; return null; }
+function skyById(id) { return obsItem("sky", id); }
 
 function ymd(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
 function pad(n) { return n < 10 ? "0" + n : "" + n; }
@@ -292,27 +318,27 @@ $("dayPrev").onclick = function () { if (hourOffset < 60) { hourOffset++; render
 $("dayNext").onclick = function () { if (hourOffset > 0) { hourOffset--; renderTable(); } };
 ["tKind", "tCount", "tWeek", "gMeasure", "gCount", "gScale", "gBars"].forEach(seg);
 
-// ---------- sky buttons ----------
-function skyButtons(container, selected, onPick) {
+// ---------- sky and wind buttons ----------
+function obsButtons(kind, container, selected, onPick) {
   container.innerHTML = "";
-  SKIES.forEach(function (s) {
+  OBS[kind].list.forEach(function (s) {
     var b = document.createElement("button");
     b.className = "sky" + (selected === s.id ? " on" : "");
-    b.innerHTML = '<span class="ic">' + s.ic + '</span>' + s.en + '<span class="zh">' + s.zh + '</span>';
+    b.innerHTML = '<span class="ic">' + s.ic + '</span>' + s.en + '<span class="zh">' + s.zh + '</span>' + (s.tip ? '<span class="tip">' + s.tip + '</span>' : "");
     b.onclick = function () { onPick(s.id); };
     container.appendChild(b);
   });
 }
-var popDate = null;
-function openSkyPop(key) {
-  popDate = key;
-  $("popTitle").innerHTML = "Sky on " + niceDate(key) + ' <span class="zh">那天的天空</span>';
-  var sky = parse(Weather.sky(), {});
-  skyButtons($("skiesPop"), sky[key], function (id) { Weather.setSky(popDate, id); openSkyPop(popDate); render(); });
+var popDate = null, popKind = "sky";
+function openPop(kind, key) {
+  popKind = kind; popDate = key;
+  var o = OBS[kind];
+  $("popTitle").innerHTML = o.en + " on " + niceDate(key) + ' <span class="zh">那天的' + o.zh + '</span>';
+  obsButtons(kind, $("skiesPop"), o.load()[key], function (id) { o.save(popDate, id); openPop(popKind, popDate); render(); });
   $("veil").classList.add("on");
 }
 $("popClose").onclick = function () { $("veil").classList.remove("on"); };
-$("popClear").onclick = function () { Weather.setSky(popDate, ""); $("veil").classList.remove("on"); render(); };
+$("popClear").onclick = function () { OBS[popKind].save(popDate, ""); $("veil").classList.remove("on"); render(); };
 $("forget").onclick = function (e) {
   e.preventDefault();
   if (confirm("Forget this micro:bit and look for a new one?")) Weather.forgetBoard();
@@ -353,7 +379,7 @@ function renderNow() {
   var fresh = s.time && (s.now - s.time) < 30 * 60000;
   $("vT").innerHTML = (s.t != null ? Math.round(s.t) : "--") + "<small>°C</small>";
   $("vTf").textContent = s.t != null ? fmt1(s.t) + " °C" : "";
-  $("vP").innerHTML = fmt1(s.p) + "<small>kPa</small>";
+  $("vH").innerHTML = (s.h != null ? Math.round(s.h) : "--") + "<small>%</small>";
   $("vU").textContent = s.u != null ? Math.round(s.u) : "--";
   $("vUh").textContent = uvWord(s.u);
   $("vL").textContent = s.l != null ? s.l : "--";
@@ -387,10 +413,12 @@ function renderNow() {
   }
 
   var today = ymd(new Date());
-  var sky = parse(Weather.sky(), {});
-  skyButtons($("skiesNow"), sky[today], function (id) {
-    Weather.setSky(today, sky[today] === id ? "" : id);
-    renderNow();
+  ["sky", "wind"].forEach(function (kind) {
+    var saved = OBS[kind].load();
+    obsButtons(kind, $(kind === "sky" ? "skiesNow" : "windNow"), saved[today], function (id) {
+      OBS[kind].save(today, saved[today] === id ? "" : id);
+      renderNow();
+    });
   });
 }
 
@@ -448,18 +476,18 @@ function renderTable() {
   }
   var days = dayRows(+opts.tCount, opts.tWeek === "school");
   if (!days.length) { out.innerHTML = '<div class="empty">No readings yet. Leave the board running for a day. 还没有读数。</div>'; note.textContent = ""; return; }
-  var sky = parse(Weather.sky(), {});
-  html = "<table><tr><th>Date<span>日期</span></th><th>Sky<span>天空</span></th><th>Highest (°C)<span>最高气温</span></th><th>Lowest (°C)<span>最低气温</span></th><th>Humidity (%)<span>湿度</span></th></tr>";
+  var sky = OBS.sky.load(), wind = OBS.wind.load();
+  html = "<table><tr><th>Date<span>日期</span></th><th>Sky<span>天空</span></th><th>Wind<span>风</span></th><th>Highest (°C)<span>最高气温</span></th><th>Lowest (°C)<span>最低气温</span></th><th>Humidity (%)<span>湿度</span></th></tr>";
   days.forEach(function (o) {
-    var s = skyById(sky[o.key]);
+    var s = skyById(sky[o.key]), w = obsItem("wind", wind[o.key]);
     var dl = o.key === ymd(new Date()) ? niceDate(o.key) + '<br><span class="zh" style="font-size:18px">today so far 今天到现在</span>' : niceDate(o.key);
-    html += "<tr><td>" + dl + '</td><td class="sk" data-k="' + o.key + '">' + (s ? s.ic : '<span class="none">tap 点击</span>') + "</td><td>" +
+    html += "<tr><td>" + dl + '</td><td class="sk" data-k="' + o.key + '">' + (s ? s.ic : '<span class="none">tap 点击</span>') + '</td><td class="sk" data-kind="wind" data-k="' + o.key + '">' + (w ? w.ic : '<span class="none">tap 点击</span>') + "</td><td>" +
       (o.hi == null ? "–" : Math.round(o.hi)) + "</td><td>" + (o.lo == null ? "–" : Math.round(o.lo)) + "</td><td>" + (o.hum == null ? "–" : Math.round(o.hum)) + "</td></tr>";
   });
   out.innerHTML = html + "</table>";
   var cells = out.querySelectorAll("td.sk");
-  for (var i = 0; i < cells.length; i++) cells[i].onclick = function () { openSkyPop(this.getAttribute("data-k")); };
-  note.textContent = "Temperatures are for the whole day. Humidity is the average during school hours (8:00–15:00). Tap a sky box to change it. 气温是全天的；湿度是上课时间的平均值。";
+  for (var i = 0; i < cells.length; i++) cells[i].onclick = function () { openPop(this.getAttribute("data-kind") || "sky", this.getAttribute("data-k")); };
+  note.textContent = "Temperatures are for the whole day. Humidity is the average during school hours (8:00–15:00). Tap a sky or wind box to change it. 气温是全天的；湿度是上课时间的平均值。";
 }
 
 // ---------- bar graph ----------
@@ -467,15 +495,15 @@ function renderGraph() {
   var measure = opts.gMeasure, scale = +opts.gScale, mode = opts.gBars;
   $("gCountCtl").style.display = "";
   var bars = [], yLabel = "", title = "", xLabel = "Day 日期";
-  var days = dayRows(+opts.gCount, true, measure !== "sky");
-  if (measure === "sky") {
-    var sky = parse(Weather.sky(), {});
+  var isObs = measure === "sky" || measure === "wind";
+  var days = dayRows(+opts.gCount, true, !isObs);
+  if (isObs) {
+    var ob = OBS[measure], saved = ob.load();
     var counts = {};
-    days.forEach(function (o) { var s = sky[o.key]; if (s) counts[s] = (counts[s] || 0) + 1; });
-    // also count days that only have a sky choice but no readings
-    SKIES.forEach(function (s) { bars.push({ label: s.ic, sub: s.en + " " + s.zh, value: counts[s.id] || 0 }); });
-    title = "Sky in the last " + days.length + " school days 最近" + days.length + "个上学日的天空";
-    yLabel = "Number of days 天数"; xLabel = "Sky 天空";
+    days.forEach(function (o) { var v = saved[o.key]; if (v) counts[v] = (counts[v] || 0) + 1; });
+    ob.list.forEach(function (s) { bars.push({ label: s.ic, sub: s.en + " " + s.zh, value: counts[s.id] || 0 }); });
+    title = ob.en + " in the last " + days.length + " school days 最近" + days.length + "个上学日的" + ob.zh;
+    yLabel = "Number of days 天数"; xLabel = ob.en + " " + ob.zh;
   } else {
     days.forEach(function (o) {
       var v = measure === "high" ? o.hi : measure === "low" ? o.lo : o.hum;
@@ -516,20 +544,20 @@ function renderGraph() {
       s += '<rect x="' + (cx - bw / 2) + '" y="' + Math.min(y0, y1) + '" width="' + bw + '" height="' + Math.abs(y1 - y0) + '" fill="#1f5fae" rx="4"/>';
       if (mode === "nums") s += '<text x="' + cx + '" y="' + (b.value >= 0 ? y1 - 12 : y1 + 34) + '" text-anchor="middle" font-size="28" font-weight="700" fill="#1f5fae">' + b.value + '</text>';
     }
-    var big = measure === "sky";
+    var big = isObs;
     s += '<text x="' + cx + '" y="' + (T + ph + (big ? 50 : 38)) + '" text-anchor="middle" font-size="' + (big ? 44 : 26) + '" fill="#1d1d1f">' + b.label + '</text>';
     s += '<text x="' + cx + '" y="' + (T + ph + (big ? 86 : 70)) + '" text-anchor="middle" font-size="20" fill="#5b5b66">' + b.sub + '</text>';
   });
   s += '</svg>';
   $("graphOut").innerHTML = s;
 
-  var note = (measure === "sky" ? "" : "Today is left out until the day is over. 今天结束后才会加入。 ") + "Scale: each line on the graph is " + scale + ". 刻度：每一格是 " + scale + "。";
+  var note = (isObs ? "" : "Today is left out until the day is over. 今天结束后才会加入。 ") + "Scale: each line on the graph is " + scale + ". 刻度：每一格是 " + scale + "。";
   if (mode === "blank") {
-    var list = bars.map(function (b) { return (measure === "sky" ? b.sub : b.label) + " = " + (b.value == null ? "–" : b.value); }).join(" · ");
+    var list = bars.map(function (b) { return (isObs ? b.sub : b.label) + " = " + (b.value == null ? "–" : b.value); }).join(" · ");
     note = "Draw the bars with the pen tool. Data 数据: " + list + ".  " + note;
   }
   if (tooMany) note += "  That is a lot of lines. Try a bigger scale. 格子太多了，试试更大的刻度。";
-  if (measure === "sky" && !vals.some(function (v) { return v > 0; })) note = "No sky choices yet. Pick the sky on the Now page each day. 每天在“现在”页选择天空。";
+  if (isObs && !vals.some(function (v) { return v > 0; })) note = "No " + OBS[measure].en.toLowerCase() + " choices yet. Pick it on the Now page each day. 每天在“现在”页选择" + OBS[measure].zh + "。";
   $("graphNote").textContent = note;
 }
 
