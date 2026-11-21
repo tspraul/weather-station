@@ -109,7 +109,8 @@ for c in todo:
             data["source"] += "; rain from Open-Meteo ERA5"
         if not c.get("curated"): print(c["en"], "|", data["station"], flush=True)
         else: print("%-12s %-40s %s" % (c["id"], data["source"], data["station"]), flush=True)
-        entry = {"id": c["id"], "en": c["en"], "zh": c["zh"], "flag": c["flag"], "region": c["region"], "lat": lat, "lon": lon, **data}
+        zh = c["zh"][:-1] if c["zh"].endswith("市") and len(c["zh"]) > 2 else c["zh"]
+        entry = {"id": c["id"], "en": c["en"], "zh": zh, "flag": c["flag"], "region": c["region"], "lat": lat, "lon": lon, **data}
         if c.get("country"): entry["country"] = c["country"]
         out.append(entry)
 
