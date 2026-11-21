@@ -80,23 +80,38 @@ def openmeteo(lat, lon):
             "source": "Open-Meteo ERA5 1991-2020", "station": "grid point"}
 
 out = []
+todo = []
 with open("tools/cities.csv", encoding="utf-8") as f:
-    for c in csv.DictReader(f):
+    for c in csv.DictReader(f): c["curated"] = True; todo.append(c)
+try:
+    with open("tools/cities_more.csv", encoding="utf-8") as f:
+        for c in csv.DictReader(f):
+            if not c["zh"]: continue
+            if any(km(float(c["lat"]), float(c["lon"]), float(t["lat"]), float(t["lon"])) < 25 for t in todo): continue
+            todo.append(c)
+except FileNotFoundError:
+    pass
+print("cities to look up:", len(todo), flush=True)
+for c in todo:
         lat, lon = float(c["lat"]), float(c["lon"])
         data = None
         try:
             data = meteostat(lat, lon)
         except Exception as e:
             print("meteostat failed", c["id"], e, file=sys.stderr)
+        if data is None and not c.get("curated"):
+            continue   # big-list city with no nearby station: leave it out
         if data is None:
             data = openmeteo(lat, lon)
         elif data["months"][0][2] is None:
             om = openmeteo(lat, lon)
             for m in range(12): data["months"][m][2] = om["months"][m][2]
             data["source"] += "; rain from Open-Meteo ERA5"
-        print("%-12s %-40s %s" % (c["id"], data["source"], data["station"]), flush=True)
-        out.append({"id": c["id"], "en": c["en"], "zh": c["zh"], "flag": c["flag"], "region": c["region"],
-                    "lat": lat, "lon": lon, **data})
+        if not c.get("curated"): print(c["en"], "|", data["station"], flush=True)
+        else: print("%-12s %-40s %s" % (c["id"], data["source"], data["station"]), flush=True)
+        entry = {"id": c["id"], "en": c["en"], "zh": c["zh"], "flag": c["flag"], "region": c["region"], "lat": lat, "lon": lon, **data}
+        if c.get("country"): entry["country"] = c["country"]
+        out.append(entry)
 
 doc = {"note": "Each month: [average high C, average low C, rain/snow mm]. Built by tools/build_climate.py.", "cities": out}
 with open("app/src/main/assets/climate.js", "w", encoding="utf-8") as f:
