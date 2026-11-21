@@ -753,9 +753,10 @@ function climateWorld(out, note) {
       groups: c.months.map(function (v, i) { return { label: MONTHS_EN[i].charAt(0), vals: [v[idx]] }; }),
       series: [{ name: "", color: color }]
     });
-    html += '<div class="ccard"><h3>' + cityName(c) + '</h3>' + (c.lat < 0 ? '<div style="font-size:16px;color:var(--warm);font-weight:600">Southern Hemisphere 南半球</div>' : '<div style="font-size:16px;color:var(--muted)">Northern Hemisphere 北半球</div>') + chart +
-      '<div class="facts"><span>Hottest 最热: <b>' + MONTHS_EN[hot] + ' ' + r0(c.months[hot][0]) + '°</b></span><span>Coldest 最冷: <b>' + MONTHS_EN[cold] + ' ' + r0(c.months[cold][1]) + '°</b></span>' +
-      '<span>Wettest 最湿: <b>' + MONTHS_EN[wet] + '</b></span><span>Rain in a year 年降水: <b>' + total + ' mm</b></span></div></div>';
+    var est = /Open-Meteo/.test(c.source || "") && !/rain from Open-Meteo/.test(c.source || "") ? ' · <span title="No long-term station record was available">estimated from a weather model 模型估计</span>' : "";
+    html += '<div class="ccard"><h3>' + cityName(c) + '</h3>' + (c.lat < 0 ? '<div style="font-size:16px;color:var(--warm);font-weight:600">Southern Hemisphere 南半球' + est + '</div>' : '<div style="font-size:16px;color:var(--muted)">Northern Hemisphere 北半球' + est + '</div>') + chart +
+      '<div class="facts"><span>Hottest month 最热: <b>' + MONTHS_EN[hot] + '</b>, highs ' + r0(c.months[hot][0]) + ' °C</span><span>Coldest month 最冷: <b>' + MONTHS_EN[cold] + '</b>, lows ' + r0(c.months[cold][1]) + ' °C</span>' +
+      '<span>Wettest month 最湿: <b>' + MONTHS_EN[wet] + '</b></span><span>Rain in a year 年降水: <b>' + total + ' mm</b></span></div></div>';
   });
   out.innerHTML = '<div style="font-size:24px;font-weight:700;margin-bottom:12px">' + (m === "hi" ? "Average high temperature each month (°C) 每月平均最高气温" : m === "lo" ? "Average low temperature each month (°C) 每月平均最低气温" : "Rain and snow each month (mm) 每月降水量") + '</div>' + html + '</div>';
   note.textContent = "All graphs use the same scale, so you can compare them. The shaded month is this month. Data: long-term averages from weather stations (Meteostat), mostly 1991–2020.";
