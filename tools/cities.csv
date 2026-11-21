@@ -1,0 +1,52 @@
+id,en,zh,flag,region,lat,lon
+shanghai,Shanghai,上海,🇨🇳,Asia,31.23,121.47
+beijing,Beijing,北京,🇨🇳,Asia,39.90,116.40
+harbin,Harbin,哈尔滨,🇨🇳,Asia,45.80,126.53
+guangzhou,Guangzhou,广州,🇨🇳,Asia,23.13,113.26
+hongkong,Hong Kong,香港,🇭🇰,Asia,22.32,114.17
+kunming,Kunming,昆明,🇨🇳,Asia,25.04,102.71
+lhasa,Lhasa,拉萨,🇨🇳,Asia,29.65,91.12
+taipei,Taipei,台北,🇨🇳,Asia,25.03,121.56
+seoul,Seoul,首尔,🇰🇷,Asia,37.57,126.98
+tokyo,Tokyo,东京,🇯🇵,Asia,35.68,139.69
+singapore,Singapore,新加坡,🇸🇬,Asia,1.35,103.82
+bangkok,Bangkok,曼谷,🇹🇭,Asia,13.75,100.50
+manila,Manila,马尼拉,🇵🇭,Asia,14.60,120.98
+jakarta,Jakarta,雅加达,🇮🇩,Asia,-6.20,106.85
+kualalumpur,Kuala Lumpur,吉隆坡,🇲🇾,Asia,3.14,101.69
+hanoi,Hanoi,河内,🇻🇳,Asia,21.03,105.85
+mumbai,Mumbai,孟买,🇮🇳,Asia,19.08,72.88
+delhi,New Delhi,新德里,🇮🇳,Asia,28.61,77.21
+dubai,Dubai,迪拜,🇦🇪,Asia,25.20,55.27
+ulaanbaatar,Ulaanbaatar,乌兰巴托,🇲🇳,Asia,47.89,106.91
+london,London,伦敦,🇬🇧,Europe,51.51,-0.13
+paris,Paris,巴黎,🇫🇷,Europe,48.86,2.35
+berlin,Berlin,柏林,🇩🇪,Europe,52.52,13.40
+amsterdam,Amsterdam,阿姆斯特丹,🇳🇱,Europe,52.37,4.90
+madrid,Madrid,马德里,🇪🇸,Europe,40.42,-3.70
+rome,Rome,罗马,🇮🇹,Europe,41.90,12.50
+stockholm,Stockholm,斯德哥尔摩,🇸🇪,Europe,59.33,18.07
+moscow,Moscow,莫斯科,🇷🇺,Europe,55.76,37.62
+reykjavik,Reykjavik,雷克雅未克,🇮🇸,Europe,64.15,-21.94
+cairo,Cairo,开罗,🇪🇬,Africa,30.04,31.24
+nairobi,Nairobi,内罗毕,🇰🇪,Africa,-1.29,36.82
+capetown,Cape Town,开普敦,🇿🇦,Africa,-33.92,18.42
+lagos,Lagos,拉各斯,🇳🇬,Africa,6.52,3.38
+stlouis,St. Louis,圣路易斯,🇺🇸,North America,38.63,-90.20
+newyork,New York,纽约,🇺🇸,North America,40.71,-74.01
+chicago,Chicago,芝加哥,🇺🇸,North America,41.88,-87.63
+losangeles,Los Angeles,洛杉矶,🇺🇸,North America,34.05,-118.24
+miami,Miami,迈阿密,🇺🇸,North America,25.76,-80.19
+phoenix,Phoenix,凤凰城,🇺🇸,North America,33.45,-112.07
+anchorage,Anchorage,安克雷奇,🇺🇸,North America,61.22,-149.90
+toronto,Toronto,多伦多,🇨🇦,North America,43.65,-79.38
+vancouver,Vancouver,温哥华,🇨🇦,North America,49.28,-123.12
+mexicocity,Mexico City,墨西哥城,🇲🇽,North America,19.43,-99.13
+nuuk,Nuuk,努克,🇬🇱,North America,64.18,-51.72
+saopaulo,São Paulo,圣保罗,🇧🇷,South America,-23.55,-46.63
+lima,Lima,利马,🇵🇪,South America,-12.05,-77.04
+buenosaires,Buenos Aires,布宜诺斯艾利斯,🇦🇷,South America,-34.60,-58.38
+perth,Perth,珀斯,🇦🇺,Oceania,-31.95,115.86
+sydney,Sydney,悉尼,🇦🇺,Oceania,-33.87,151.21
+melbourne,Melbourne,墨尔本,🇦🇺,Oceania,-37.81,144.96
+auckland,Auckland,奥克兰,🇳🇿,Oceania,-36.85,174.76
