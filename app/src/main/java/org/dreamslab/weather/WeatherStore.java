@@ -198,6 +198,12 @@ public final class WeatherStore {
         } catch (Exception ignored) { }
     }
 
+    // ----- Small settings for the page (chosen cities, home city) -----
+
+    public String getPref(String key) { return prefs.getString("pref_" + key, ""); }
+
+    public void setPref(String key, String value) { prefs.edit().putString("pref_" + key, value).apply(); }
+
     // ----- Which micro:bit we listen to -----
 
     public String getSavedBoard() { return prefs.getString("board", null); }

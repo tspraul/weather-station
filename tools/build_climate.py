@@ -39,22 +39,24 @@ def meteostat(lat, lon):
         except Exception:
             continue
         rows = list(csv.reader(io.StringIO(raw)))
-        # columns: start,end,month,tavg,tmin,tmax,prcp,wspd,pres,tsun
-        best = {}
+        # columns: start,end,month,tmin,tmax,prcp,wspd,pres,tsun
+        temps, rain = {}, {}
         for r in rows:
-            if len(r) < 7: continue
+            if len(r) < 6: continue
             try:
-                start, end, m = int(r[0]), int(r[1]), int(r[2])
-                tmin, tmax, prcp = float(r[4]), float(r[5]), float(r[6])
+                period, m = (int(r[0]), int(r[1])), int(r[2])
             except ValueError:
                 continue
-            best.setdefault((start, end), {})[m] = (tmax, tmin, prcp)
-        full = [k for k, v in best.items() if len(v) == 12]
-        if not full: continue
-        period = max(full, key=lambda k: (k[1], k[0]))
-        v = best[period]
-        return {"months": [[round(v[m][0], 1), round(v[m][1], 1), round(v[m][2])] for m in range(1, 13)],
-                "source": "Meteostat station normals %d-%d" % period,
+            if r[3] and r[4]: temps.setdefault(period, {})[m] = (float(r[4]), float(r[3]))
+            if r[5]: rain.setdefault(period, {})[m] = float(r[5])
+        tp = [k for k, v in temps.items() if len(v) == 12]
+        rp = [k for k, v in rain.items() if len(v) == 12]
+        if not tp: continue
+        tper = max(tp, key=lambda k: (k[1], k[0]))
+        rper = max(rp, key=lambda k: (k[1], k[0])) if rp else None
+        t = temps[tper]
+        return {"months": [[round(t[m][0], 1), round(t[m][1], 1), round(rain[rper][m]) if rper else None] for m in range(1, 13)],
+                "source": "Meteostat station normals %d-%d" % tper + ("" if rper == tper else " (rain %s)" % (rper,)),
                 "station": "%s (%s, %.0f km away)" % ((s.get("name") or {}).get("en", s["id"]), s["id"], d)}
     return None
 
