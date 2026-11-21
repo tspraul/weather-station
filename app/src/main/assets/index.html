@@ -80,6 +80,20 @@ th{background:var(--blue-soft);font-size:22px;line-height:1.2}
 th span{display:block;font-weight:500;font-size:19px;color:var(--muted)}
 td.sk{font-size:32px;cursor:pointer;min-width:120px}
 td.sk .none{font-size:18px;color:#9a9aa5}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ccard{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px 16px}
+.ccard h3{margin:0;font-size:24px}
+.ccard .facts{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px;font-size:17px;color:var(--muted);margin-top:6px}
+.ccard .facts b{color:var(--ink);font-weight:600}
+.verdict{font-size:40px;font-weight:700;margin:6px 0 4px}
+.verdict.warm{color:var(--warm)} .verdict.cool{color:var(--blue)} .verdict.same{color:var(--green)}
+.big2{display:grid;grid-template-columns:1fr 1.3fr;gap:22px;align-items:start}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:22px 26px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 18px}
+.chip{border:2px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px;font-size:19px;font-weight:600}
+.chip.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.chip.home{outline:3px solid var(--warm);outline-offset:2px}
+h3.region{margin:14px 0 2px;font-size:20px;color:var(--muted)}
 .empty{padding:40px;background:var(--card);border:2px dashed var(--line);border-radius:18px;font-size:24px;color:var(--muted);text-align:center}
 .note{margin-top:14px;font-size:19px;color:var(--muted)}
 
@@ -105,6 +119,7 @@ footer a{color:#8a8a95}
     <button class="tab on" data-page="now">Now<span>现在</span></button>
     <button class="tab" data-page="table">Table<span>表格</span></button>
     <button class="tab" data-page="graph">Graph<span>图表</span></button>
+    <button class="tab" data-page="climate">Climate<span>气候</span></button>
   </nav>
   <div id="status" class="status wait"><span class="dot"></span><span id="statusText">Starting…</span></div>
 </header>
@@ -219,6 +234,35 @@ footer a{color:#8a8a95}
     <div class="graphwrap" id="graphOut"></div>
     <div class="note" id="graphNote"></div>
   </section>
+  <!-- CLIMATE -->
+  <section id="climate" class="page">
+    <div class="controls">
+      <div class="ctl"><span class="cap">Show 显示</span>
+        <div class="seg" id="cView">
+          <button data-v="normal" class="on">Is this normal? <span class="zh">正常吗？</span></button>
+          <button data-v="world">Around the world <span class="zh">世界各地</span></button>
+          <button data-v="year">Our year <span class="zh">我们的一年</span></button>
+          <button data-v="choose">Choose cities <span class="zh">选择城市</span></button>
+        </div>
+      </div>
+      <div class="ctl" id="cPeriodCtl"><span class="cap">Compare 比较</span>
+        <div class="seg" id="cPeriod">
+          <button data-v="week" class="on">Last 7 days <span class="zh">最近7天</span></button>
+          <button data-v="month">This month <span class="zh">本月</span></button>
+          <button data-v="last">Last month <span class="zh">上个月</span></button>
+        </div>
+      </div>
+      <div class="ctl" id="cMeasureCtl"><span class="cap">What to show 显示什么</span>
+        <div class="seg" id="cMeasure">
+          <button data-v="hi" class="on">Average high <span class="zh">平均最高</span></button>
+          <button data-v="lo">Average low <span class="zh">平均最低</span></button>
+          <button data-v="rain">Rain <span class="zh">降水</span></button>
+        </div>
+      </div>
+    </div>
+    <div id="climateOut"></div>
+    <div class="note" id="climateNote"></div>
+  </section>
 </main>
 <footer><span id="ver"></span><a href="#" id="forget">Use a different micro:bit</a></footer>
 </div>
@@ -234,6 +278,7 @@ footer a{color:#8a8a95}
   </div>
 </div>
 
+<script src="climate.js"></script>
 <script>
 // ---------------------------------------------------------------
 // Data source: the Android app provides window.Weather. In a normal
@@ -241,17 +286,18 @@ footer a{color:#8a8a95}
 // ---------------------------------------------------------------
 if (!window.Weather) {
   window.Weather = (function () {
-    var rows = [], now = Date.now(), slot = 600000, start = now - 21 * 86400000;
+    var rows = [], now = Date.now(), slot = 600000, start = now - 140 * 86400000;
     for (var t = start - start % slot; t < now; t += slot) {
       var d = new Date(t), hr = d.getHours() + d.getMinutes() / 60, day = Math.floor((t - start) / 86400000);
-      var base = 14 + 4 * Math.sin(day / 3);
+      var doy = (d - new Date(d.getFullYear(), 0, 1)) / 86400000;
+      var base = 13 + 10 * Math.sin((doy - 105) / 365 * 2 * Math.PI) + 3 * Math.sin(day / 3);
       var temp = base + 6 * Math.sin((hr - 9) / 24 * 2 * Math.PI) + Math.random() * 0.6;
       rows.push([t, +temp.toFixed(1), +(55 - 15 * Math.sin((hr - 9) / 24 * 2 * Math.PI) + 10 * Math.cos(day)).toFixed(1), 101.2, hr > 7 && hr < 18 ? 2.1 : 0, hr > 7 && hr < 18 ? 600 : 3]);
     }
     var skyNames = ["sunny", "partly", "cloudy", "rainy", "sunny", "foggy"], sky = {};
     var windNames = ["calm", "breeze", "breeze", "windy", "strong"], wind = {};
     for (var i = 1; i < 15; i++) { var k = new Date(now - i * 86400000); sky[ymd(k)] = skyNames[i % 6]; wind[ymd(k)] = windNames[i % 5]; }
-    var last = rows[rows.length - 1];
+    var last = rows[rows.length - 1], prefs = {};
     return {
       status: function () { return JSON.stringify({ state: "connected", board: "BBC micro:bit [demo]", savedBoard: true, time: last[0], now: Date.now(), t: last[1], h: last[2], p: last[3], u: last[4], l: last[5] }); },
       log: function (days) { var s = Date.now() - days * 86400000; return JSON.stringify(rows.filter(function (r) { return r[0] >= s; })); },
@@ -260,6 +306,7 @@ if (!window.Weather) {
       setWind: function (d, s) { if (s) wind[d] = s; else delete wind[d]; },
       setSky: function (d, s) { if (s) sky[d] = s; else delete sky[d]; },
       csv: function () { return ""; }, version: function () { return "demo"; },
+      getPref: function (k) { return prefs[k] || ""; }, setPref: function (k, v) { prefs[k] = v; },
       forgetBoard: function () {}, fixPermissions: function () {}, turnOnBluetooth: function () {}
     };
   })();
@@ -316,7 +363,7 @@ function seg(id) {
 var hourOffset = 0;
 $("dayPrev").onclick = function () { if (hourOffset < 60) { hourOffset++; renderTable(); } };
 $("dayNext").onclick = function () { if (hourOffset > 0) { hourOffset--; renderTable(); } };
-["tKind", "tCount", "tWeek", "gMeasure", "gCount", "gScale", "gBars"].forEach(seg);
+["tKind", "tCount", "tWeek", "gMeasure", "gCount", "gScale", "gBars", "cView", "cPeriod", "cMeasure"].forEach(seg);
 
 // ---------- sky and wind buttons ----------
 function obsButtons(kind, container, selected, onPick) {
@@ -561,11 +608,217 @@ function renderGraph() {
   $("graphNote").textContent = note;
 }
 
+// ---------- Climate page ----------
+var MONTHS_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var DEFAULT_CITIES = ["shanghai", "singapore", "dubai", "harbin", "perth", "stlouis"];
+var CITIES = (window.CLIMATE && CLIMATE.cities) || [];
+function cityById(id) { for (var i = 0; i < CITIES.length; i++) if (CITIES[i].id === id) return CITIES[i]; return null; }
+function getPref(k) { try { return Weather.getPref ? Weather.getPref(k) : ""; } catch (e) { return ""; } }
+function setPref(k, v) { try { if (Weather.setPref) Weather.setPref(k, v); } catch (e) {} }
+function chosenCities() {
+  var v = getPref("cities");
+  var ids = v ? v.split(",") : DEFAULT_CITIES;
+  return ids.map(cityById).filter(function (c) { return c; });
+}
+function homeCity() { return cityById(getPref("home") || "shanghai") || cityById("shanghai") || CITIES[0]; }
+function cityName(c) { return c.flag + " " + c.en + " " + c.zh; }
+function r0(v) { return v == null ? "–" : Math.round(v); }
+
+// Daily high / low for every finished day in the log, all days of the week.
+function allDays(nDays) {
+  var rows = parse(Weather.log(nDays), []), by = {}, today = ymd(new Date());
+  rows.forEach(function (r) {
+    if (r[1] == null) return;
+    var d = new Date(r[0]), k = ymd(d);
+    if (k === today) return;
+    var o = by[k] || (by[k] = { key: k, y: d.getFullYear(), m: d.getMonth(), hi: r[1], lo: r[1], n: 0 });
+    if (r[1] > o.hi) o.hi = r[1];
+    if (r[1] < o.lo) o.lo = r[1];
+    o.n++;
+  });
+  // a day needs most of its readings (at least 18 hours) to count
+  return Object.keys(by).sort().map(function (k) { return by[k]; }).filter(function (o) { return o.n >= 108; });
+}
+function avg(list, f) { if (!list.length) return null; var s = 0; list.forEach(function (o) { s += f(o); }); return s / list.length; }
+
+// Grouped bar chart in SVG. groups: [{label, sub, vals:[v1, v2]}], series: [{name, color}]
+function groupedBars(o) {
+  var W = o.W || 1700, H = o.H || 520, L = 110, R = 24, T = o.title ? 64 : 24, B = o.sub ? 92 : 64;
+  var pw = W - L - R, ph = H - T - B, step = o.step;
+  var vals = [];
+  o.groups.forEach(function (g) { g.vals.forEach(function (v) { if (v != null) vals.push(v); }); });
+  var vmax = o.max != null ? o.max : Math.max.apply(null, vals.concat([0]));
+  var vmin = o.min != null ? o.min : Math.min.apply(null, vals.concat([0]));
+  var top = Math.ceil(vmax / step) * step; if (top <= vmax) top += step; if (top <= 0) top = step;
+  var bottom = Math.floor(vmin / step) * step;
+  function y(v) { return T + ph - (v - bottom) / (top - bottom) * ph; }
+  var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%">';
+  if (o.title) s += '<text x="' + (L + pw / 2) + '" y="38" text-anchor="middle" font-size="' + (o.titleSize || 30) + '" font-weight="700" fill="#1d1d1f">' + o.title + '</text>';
+  var fs = o.fs || 24;
+  for (var v = bottom; v <= top + 0.001; v += step) {
+    var yy = y(v);
+    s += '<line x1="' + L + '" x2="' + (L + pw) + '" y1="' + yy + '" y2="' + yy + '" stroke="' + (v === 0 ? "#1d1d1f" : "#d3d6dd") + '" stroke-width="' + (v === 0 ? 2.5 : 1.5) + '"/>';
+    s += '<text x="' + (L - 12) + '" y="' + (yy + fs / 3) + '" text-anchor="end" font-size="' + fs + '" fill="#1d1d1f">' + v + '</text>';
+  }
+  s += '<line x1="' + L + '" x2="' + L + '" y1="' + T + '" y2="' + (T + ph) + '" stroke="#1d1d1f" stroke-width="2.5"/>';
+  if (o.yLabel) s += '<text transform="translate(' + (fs * 1.1) + ' ' + (T + ph / 2) + ') rotate(-90)" text-anchor="middle" font-size="' + (fs * 0.85) + '" font-weight="600" fill="#5b5b66">' + o.yLabel + '</text>';
+  var n = o.groups.length, slotW = pw / n, k = o.series.length, bw = Math.min(o.maxBar || 70, slotW * 0.72 / k);
+  o.groups.forEach(function (g, i) {
+    var cx = L + slotW * (i + 0.5);
+    if (o.highlight === i) s += '<rect x="' + (cx - slotW / 2 + 2) + '" y="' + T + '" width="' + (slotW - 4) + '" height="' + ph + '" fill="#fde9df" opacity="0.7"/>';
+    g.vals.forEach(function (v, j) {
+      if (v == null) return;
+      var x = cx - bw * k / 2 + j * bw, y0 = y(0), y1 = y(v);
+      s += '<rect x="' + (x + 2) + '" y="' + Math.min(y0, y1) + '" width="' + (bw - 4) + '" height="' + Math.max(1, Math.abs(y1 - y0)) + '" fill="' + o.series[j].color + '" rx="3"/>';
+      if (o.nums) s += '<text x="' + (x + bw / 2) + '" y="' + (v >= 0 ? y1 - 8 : y1 + fs) + '" text-anchor="middle" font-size="' + (fs * 0.85) + '" font-weight="700" fill="' + o.series[j].color + '">' + Math.round(v) + '</text>';
+    });
+    s += '<text x="' + cx + '" y="' + (T + ph + fs + 8) + '" text-anchor="middle" font-size="' + fs + '" fill="#1d1d1f" font-weight="' + (o.highlight === i ? 700 : 400) + '">' + g.label + '</text>';
+    if (g.sub) s += '<text x="' + cx + '" y="' + (T + ph + fs * 2 + 12) + '" text-anchor="middle" font-size="' + (fs * 0.8) + '" fill="#5b5b66">' + g.sub + '</text>';
+  });
+  return s + '</svg>';
+}
+function legend(series) {
+  return '<div style="display:flex;gap:26px;font-size:21px;margin:4px 0 10px">' + series.map(function (sr) {
+    return '<span><span style="display:inline-block;width:22px;height:22px;border-radius:5px;background:' + sr.color + ';vertical-align:-4px;margin-right:8px"></span>' + sr.name + '</span>';
+  }).join("") + '</div>';
+}
+var OURS = "#1f5fae", USUAL = "#9aa3b2";
+
+function renderClimate() {
+  var view = opts.cView, out = $("climateOut"), note = $("climateNote");
+  $("cPeriodCtl").style.display = view === "normal" ? "" : "none";
+  $("cMeasureCtl").style.display = view === "world" || view === "year" ? "" : "none";
+  var rainBtn = $("cMeasure").querySelector('[data-v="rain"]');
+  rainBtn.style.display = view === "world" ? "" : "none";
+  if (view === "year" && opts.cMeasure === "rain") { $("cMeasure").querySelector('[data-v="hi"]').click(); return; }
+  if (!CITIES.length) { out.innerHTML = '<div class="empty">Climate data is missing from this version of the app.</div>'; note.textContent = ""; return; }
+  note.textContent = "";
+  if (view === "normal") return climateNormal(out, note);
+  if (view === "world") return climateWorld(out, note);
+  if (view === "year") return climateYear(out, note);
+  return climateChoose(out, note);
+}
+
+function climateNormal(out, note) {
+  var home = homeCity(), now = new Date(), days = allDays(70), list, month, label;
+  if (opts.cPeriod === "week") {
+    list = days.slice(-7); month = now.getMonth(); label = "the last 7 days 最近7天";
+  } else {
+    var ref = opts.cPeriod === "month" ? now : new Date(now.getFullYear(), now.getMonth() - 1, 15);
+    month = ref.getMonth();
+    list = days.filter(function (o) { return o.y === ref.getFullYear() && o.m === month; });
+    label = (opts.cPeriod === "month" ? "this month so far 本月到现在" : MONTHS_EN[month] + " " + (month + 1) + "月");
+  }
+  if (list.length < 3) {
+    out.innerHTML = '<div class="empty">Not enough readings yet: we need at least 3 full days for ' + label + '. 读数还不够。</div>';
+    return;
+  }
+  var ourHi = avg(list, function (o) { return o.hi; }), ourLo = avg(list, function (o) { return o.lo; });
+  var usual = home.months[month], diff = ourHi - usual[0];
+  var cls = diff > 2 ? "warm" : diff < -2 ? "cool" : "same";
+  var words = diff > 2 ? "Warmer than usual 比平常暖和" : diff < -2 ? "Cooler than usual 比平常冷" : "About normal 和平常差不多";
+  var series = [{ name: "Our station 我们的气象站", color: OURS }, { name: "Usual in " + home.en + " 平常的" + home.zh, color: USUAL }];
+  var chart = groupedBars({
+    W: 900, H: 520, step: 5, nums: true, maxBar: 110, fs: 24,
+    groups: [{ label: "Average high", sub: "平均最高气温", vals: [ourHi, usual[0]] }, { label: "Average low", sub: "平均最低气温", vals: [ourLo, usual[1]] }],
+    series: series, yLabel: "°C"
+  });
+  out.innerHTML = '<div class="big2"><div class="panel"><div style="font-size:22px;color:var(--muted)">Our weather in ' + label + ' compared with a usual ' + MONTHS_EN[month] + ' in ' + home.en + '</div>' +
+    '<div class="verdict ' + cls + '">' + words + '</div>' +
+    '<div style="font-size:24px;line-height:1.6;margin-top:10px">Our average high 我们的平均最高: <b>' + r0(ourHi) + ' °C</b><br>Usual high 平常的最高: <b>' + r0(usual[0]) + ' °C</b><br>Our average low 我们的平均最低: <b>' + r0(ourLo) + ' °C</b><br>Usual low 平常的最低: <b>' + r0(usual[1]) + ' °C</b></div>' +
+    '<div style="font-size:20px;color:var(--muted);margin-top:16px">Weather is what happens each day. Climate is the usual weather over many years.<br>天气是每天发生的；气候是很多年来通常的天气。</div></div>' +
+    '<div class="panel">' + legend(series) + chart + '</div></div>';
+  note.textContent = "Based on " + list.length + " full days. \"About normal\" means within 2 °C of usual. Usual values are long-term averages for " + home.en + ". Our board is by a window, so it can read a little differently from an official weather station.";
+}
+
+function climateWorld(out, note) {
+  var cities = chosenCities(), m = opts.cMeasure, idx = m === "hi" ? 0 : m === "lo" ? 1 : 2, now = new Date().getMonth();
+  if (!cities.length) { out.innerHTML = '<div class="empty">No cities chosen. Pick some in Choose cities. 请选择城市。</div>'; return; }
+  var all = [];
+  cities.forEach(function (c) { c.months.forEach(function (v) { all.push(v[idx]); }); });
+  var step = m === "rain" ? 100 : 10;
+  var mx = Math.max.apply(null, all), mn = Math.min.apply(null, all.concat([0]));
+  var color = m === "hi" ? "#d9612b" : m === "lo" ? "#1f5fae" : "#2f8a4c";
+  var html = '<div class="cgrid">';
+  cities.forEach(function (c) {
+    var hot = 0, cold = 0, wet = 0, total = 0;
+    c.months.forEach(function (v, i) {
+      if (v[0] > c.months[hot][0]) hot = i;
+      if (v[1] < c.months[cold][1]) cold = i;
+      if (v[2] > c.months[wet][2]) wet = i;
+      total += v[2];
+    });
+    var chart = groupedBars({
+      W: 640, H: 330, step: step, max: mx, min: mn, fs: 20, maxBar: 40, highlight: now,
+      groups: c.months.map(function (v, i) { return { label: MONTHS_EN[i].charAt(0), vals: [v[idx]] }; }),
+      series: [{ name: "", color: color }]
+    });
+    var est = /Open-Meteo/.test(c.source || "") && !/rain from Open-Meteo/.test(c.source || "") ? ' · <span title="No long-term station record was available">estimated from a weather model 模型估计</span>' : "";
+    html += '<div class="ccard"><h3>' + cityName(c) + '</h3>' + (c.lat < 0 ? '<div style="font-size:16px;color:var(--warm);font-weight:600">Southern Hemisphere 南半球' + est + '</div>' : '<div style="font-size:16px;color:var(--muted)">Northern Hemisphere 北半球' + est + '</div>') + chart +
+      '<div class="facts"><span>Hottest month 最热: <b>' + MONTHS_EN[hot] + '</b>, highs ' + r0(c.months[hot][0]) + ' °C</span><span>Coldest month 最冷: <b>' + MONTHS_EN[cold] + '</b>, lows ' + r0(c.months[cold][1]) + ' °C</span>' +
+      '<span>Wettest month 最湿: <b>' + MONTHS_EN[wet] + '</b></span><span>Rain in a year 年降水: <b>' + total + ' mm</b></span></div></div>';
+  });
+  out.innerHTML = '<div style="font-size:24px;font-weight:700;margin-bottom:12px">' + (m === "hi" ? "Average high temperature each month (°C) 每月平均最高气温" : m === "lo" ? "Average low temperature each month (°C) 每月平均最低气温" : "Rain and snow each month (mm) 每月降水量") + '</div>' + html + '</div>';
+  note.textContent = "All graphs use the same scale, so you can compare them. The shaded month is this month. Data: long-term averages from weather stations (Meteostat), mostly 1991–2020.";
+}
+
+function climateYear(out, note) {
+  var home = homeCity(), now = new Date(), idx = opts.cMeasure === "lo" ? 1 : 0;
+  var startY = now.getMonth() >= 7 ? now.getFullYear() : now.getFullYear() - 1;
+  var days = allDays(400), groups = [], rowsHtml = "", any = false;
+  for (var i = 0; i < 12; i++) {
+    var mi = (7 + i) % 12, yr = mi >= 7 ? startY : startY + 1;
+    var list = days.filter(function (o) { return o.y === yr && o.m === mi; });
+    var ours = list.length >= 5 ? avg(list, function (o) { return idx === 0 ? o.hi : o.lo; }) : null;
+    if (ours != null) any = true;
+    groups.push({ label: MONTHS_EN[mi], sub: (mi + 1) + "月", vals: [ours, home.months[mi][idx]] });
+    var oh = list.length >= 5 ? avg(list, function (o) { return o.hi; }) : null, ol = list.length >= 5 ? avg(list, function (o) { return o.lo; }) : null;
+    rowsHtml += "<tr><td>" + MONTHS_EN[mi] + " " + (mi + 1) + "月</td><td>" + r0(oh) + "</td><td>" + r0(home.months[mi][0]) + "</td><td>" + r0(ol) + "</td><td>" + r0(home.months[mi][1]) + "</td><td>" + list.length + "</td></tr>";
+  }
+  var series = [{ name: "Our station 我们的气象站", color: OURS }, { name: "Usual in " + home.en + " 平常的" + home.zh, color: USUAL }];
+  var title = (idx === 0 ? "Average high each month (°C) 每月平均最高气温" : "Average low each month (°C) 每月平均最低气温") + " · " + startY + "–" + (startY + 1);
+  out.innerHTML = '<div class="panel">' + legend(series) + groupedBars({ W: 1760, H: 520, step: 5, groups: groups, series: series, title: title, titleSize: 28, maxBar: 44, yLabel: "°C", highlight: (now.getMonth() + 5) % 12 }) + '</div>' +
+    '<table style="margin-top:20px"><tr><th>Month<span>月份</span></th><th>Our high (°C)<span>我们的最高</span></th><th>Usual high (°C)<span>平常的最高</span></th><th>Our low (°C)<span>我们的最低</span></th><th>Usual low (°C)<span>平常的最低</span></th><th>Days of data<span>天数</span></th></tr>' + rowsHtml + '</table>';
+  note.textContent = (any ? "" : "Our bars appear once a month has 5 full days of readings. ") + "The school year runs August to July. Gray bars are the usual (long-term average) values for " + home.en + ".";
+}
+
+function climateChoose(out, note) {
+  var chosen = chosenCities().map(function (c) { return c.id; }), home = homeCity().id;
+  var regions = [];
+  CITIES.forEach(function (c) { if (regions.indexOf(c.region) < 0) regions.push(c.region); });
+  var html = '<div class="panel"><div style="font-size:22px">Tap cities to show them in <b>Around the world</b> (up to 9). Tap <b>Make home</b> to set the city used for <b>Is this normal?</b> and <b>Our year</b>.<br><span class="zh">点击城市来显示或隐藏（最多9个）。</span></div>';
+  regions.forEach(function (rg) {
+    html += '<h3 class="region">' + rg + '</h3><div class="chips">';
+    CITIES.forEach(function (c) {
+      if (c.region !== rg) return;
+      html += '<button class="chip' + (chosen.indexOf(c.id) >= 0 ? " on" : "") + (c.id === home ? " home" : "") + '" data-c="' + c.id + '">' + cityName(c) + '</button>';
+    });
+    html += '</div>';
+  });
+  html += '<div style="display:flex;gap:12px;align-items:center;margin-top:10px"><span style="font-size:20px">Home city 本地城市: <b>' + cityName(homeCity()) + '</b></span>' +
+    '<button class="btn" id="homePick">Make home… 设为本地</button><button class="btn" id="citiesReset">Reset 恢复默认</button></div></div>';
+  out.innerHTML = html;
+  var picking = false;
+  $("homePick").onclick = function () { picking = true; this.textContent = "Now tap a city 现在点击城市"; this.classList.add("primary"); };
+  $("citiesReset").onclick = function () { setPref("cities", ""); setPref("home", ""); renderClimate(); };
+  var chips = out.querySelectorAll(".chip");
+  for (var i = 0; i < chips.length; i++) chips[i].onclick = function () {
+    var id = this.getAttribute("data-c");
+    if (picking) { setPref("home", id); renderClimate(); return; }
+    var k = chosen.indexOf(id);
+    if (k >= 0) chosen.splice(k, 1); else if (chosen.length < 9) chosen.push(id);
+    setPref("cities", chosen.join(","));
+    renderClimate();
+  };
+  note.textContent = "Climate data: long-term averages from the nearest official weather station to each city (Meteostat), mostly 1991–2020.";
+}
+
 function render() {
   var on = document.querySelector(".page.on").id;
   if (on === "now") renderNow();
   else if (on === "table") renderTable();
-  else renderGraph();
+  else if (on === "graph") renderGraph();
+  else renderClimate();
 }
 try { $("ver").textContent = "Version " + Weather.version(); } catch (e) {}
 render();

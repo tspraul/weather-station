@@ -14,6 +14,7 @@ The app has three pages, in English and Chinese:
 | **Now 现在** | See temperature, humidity, UV and light, and pick today's sky and wind (calm, light breeze, windy, very windy) |
 | **Table 表格** | Read daily sky, wind, highs, lows and humidity, or any day hour by hour, and copy them into their own tables |
 | **Graph 图表** | Choose what to graph, how many days and the scale (1, 2, 5 or 10 per line). Bars can be shown, shown with numbers, or left blank so students draw them with the MAXHUB pen |
+| **Climate 气候** | **Is this normal?** compares our last week or month with a usual month in Shanghai · **Around the world** shows monthly climate graphs for chosen cities on the same scale · **Our year** builds our own climate graph, August to July · **Choose cities** picks the cities and the home city |
 
 ---
 
@@ -60,6 +61,8 @@ After that the app remembers this micro:bit, keeps listening in the background a
 | Temperature too high in the afternoon | The board is in the sun. Move it to shade. |
 
 ## How it works (for whoever maintains it)
+
+- Climate averages live in `app/src/main/assets/climate.js`. To add a city, add a row to `tools/cities.csv`, then run the **Climate data** action on GitHub (Actions → Climate data → Run workflow). It looks up the nearest weather station's 1991–2020 averages (Meteostat) and commits the updated file.
 
 - `microbit/main.ts` reads the board over I2C (write `8` to `0x10`, read 22 bytes, same as DFRobot's extension) and sends `T:23.5,H:48.2,P:101.3,U:0.12,L:530` over the Bluetooth UART service.
 - `app/` is a small Android app (Java, no libraries). `WeatherService` finds the micro:bit, connects and reconnects, and passes lines to `WeatherStore`, which saves `log.csv` every 10 minutes. The screens are one web page (`app/src/main/assets/index.html`) talking to Java through `window.Weather`.

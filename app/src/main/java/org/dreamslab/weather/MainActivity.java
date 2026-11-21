@@ -102,6 +102,8 @@ public class MainActivity extends Activity {
         @JavascriptInterface public void setSky(String date, String v) { WeatherStore.get(ctx).setObs("sky", date, v); }
         @JavascriptInterface public String wind() { return WeatherStore.get(ctx).obsJson("wind"); }
         @JavascriptInterface public void setWind(String date, String v) { WeatherStore.get(ctx).setObs("wind", date, v); }
+        @JavascriptInterface public String getPref(String key) { return WeatherStore.get(ctx).getPref(key); }
+        @JavascriptInterface public void setPref(String key, String value) { WeatherStore.get(ctx).setPref(key, value); }
         @JavascriptInterface public String csv() { return WeatherStore.get(ctx).logCsv(); }
         @JavascriptInterface public String version() { return BuildConfigInfo.version(ctx); }
 

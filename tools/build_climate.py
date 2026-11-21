@@ -27,36 +27,44 @@ print("stations:", len(stations), file=sys.stderr)
 
 def meteostat(lat, lon):
     near = []
-    for s in stations:
-        loc = s.get("location") or {}
+    for st in stations:
+        loc = st.get("location") or {}
         if loc.get("latitude") is None: continue
         d = km(lat, lon, loc["latitude"], loc["longitude"])
-        if d <= 60: near.append((d, s))
+        if d <= 60: near.append((d, st))
     near.sort(key=lambda x: x[0])
-    for d, s in near[:4]:
+    best_t, best_r = None, None   # (score, data, station label)
+    for d, st in near[:6]:
         try:
-            raw = gzip.decompress(get("https://bulk.meteostat.net/v2/normals/%s.csv.gz" % s["id"])).decode()
+            raw = gzip.decompress(get("https://bulk.meteostat.net/v2/normals/%s.csv.gz" % st["id"])).decode()
         except Exception:
             continue
-        rows = list(csv.reader(io.StringIO(raw)))
-        # columns: start,end,month,tavg,tmin,tmax,prcp,wspd,pres,tsun
-        best = {}
-        for r in rows:
-            if len(r) < 7: continue
+        # columns: start,end,month,tmin,tmax,prcp,wspd,pres,tsun
+        temps, rain = {}, {}
+        for r in csv.reader(io.StringIO(raw)):
+            if len(r) < 6: continue
             try:
-                start, end, m = int(r[0]), int(r[1]), int(r[2])
-                tmin, tmax, prcp = float(r[4]), float(r[5]), float(r[6])
+                period, m = (int(r[0]), int(r[1])), int(r[2])
             except ValueError:
                 continue
-            best.setdefault((start, end), {})[m] = (tmax, tmin, prcp)
-        full = [k for k, v in best.items() if len(v) == 12]
-        if not full: continue
-        period = max(full, key=lambda k: (k[1], k[0]))
-        v = best[period]
-        return {"months": [[round(v[m][0], 1), round(v[m][1], 1), round(v[m][2])] for m in range(1, 13)],
-                "source": "Meteostat station normals %d-%d" % period,
-                "station": "%s (%s, %.0f km away)" % ((s.get("name") or {}).get("en", s["id"]), s["id"], d)}
-    return None
+            if r[3] and r[4]: temps.setdefault(period, {})[m] = (float(r[4]), float(r[3]))
+            if r[5]: rain.setdefault(period, {})[m] = float(r[5])
+        label = "%s (%s, %.0f km)" % ((st.get("name") or {}).get("en", st["id"]), st["id"], d)
+        for per, v in temps.items():
+            if len(v) == 12:
+                score = (per[1], -d)   # newest period first, then nearest
+                if best_t is None or score > best_t[0]: best_t = (score, per, v, label)
+        for per, v in rain.items():
+            if len(v) == 12:
+                score = (per[1], -d)
+                if best_r is None or score > best_r[0]: best_r = (score, per, v, label)
+    if best_t is None: return None
+    _, tper, t, tlabel = best_t
+    months = [[round(t[m][0], 1), round(t[m][1], 1), round(best_r[2][m]) if best_r else None] for m in range(1, 13)]
+    src = "Meteostat station normals %d-%d" % tper
+    if best_r and best_r[3] != tlabel: src += "; rain %d-%d from %s" % (best_r[1][0], best_r[1][1], best_r[3])
+    elif best_r and best_r[1] != tper: src += "; rain %d-%d" % best_r[1]
+    return {"months": months, "source": src, "station": tlabel}
 
 def openmeteo(lat, lon):
     url = ("https://archive-api.open-meteo.com/v1/archive?latitude=%s&longitude=%s&start_date=1991-01-01&end_date=2020-12-31"
@@ -82,10 +90,16 @@ with open("tools/cities.csv", encoding="utf-8") as f:
             print("meteostat failed", c["id"], e, file=sys.stderr)
         if data is None:
             data = openmeteo(lat, lon)
+        elif data["months"][0][2] is None:
+            om = openmeteo(lat, lon)
+            for m in range(12): data["months"][m][2] = om["months"][m][2]
+            data["source"] += "; rain from Open-Meteo ERA5"
         print("%-12s %-40s %s" % (c["id"], data["source"], data["station"]), flush=True)
         out.append({"id": c["id"], "en": c["en"], "zh": c["zh"], "flag": c["flag"], "region": c["region"],
                     "lat": lat, "lon": lon, **data})
 
-with open("app/src/main/assets/climate.json", "w", encoding="utf-8") as f:
-    json.dump({"note": "Each month: [average high C, average low C, rain/snow mm]", "cities": out}, f, ensure_ascii=False, indent=0)
+doc = {"note": "Each month: [average high C, average low C, rain/snow mm]. Built by tools/build_climate.py.", "cities": out}
+with open("app/src/main/assets/climate.js", "w", encoding="utf-8") as f:
+    f.write("// Climate normals for the Climate page. Built by tools/build_climate.py (GitHub Actions: Climate data).\n")
+    f.write("var CLIMATE = " + json.dumps(doc, ensure_ascii=False) + ";\n")
 print("wrote", len(out), "cities", file=sys.stderr)
