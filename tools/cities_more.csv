@@ -1,0 +1,467 @@
+id,en,zh,flag,region,lat,lon,country
+g1796236,Shanghai,复旦大学附属眼耳鼻喉科医院,🇨🇳,Asia,31.22222,121.45806,China
+g1814906,Chongqing,重庆主城区,🇨🇳,Asia,29.56026,106.55771,China
+g1815286,Chengdu,成都市,🇨🇳,Asia,30.66667,104.06667,China
+g1816670,Beijing,北京市,🇨🇳,Asia,39.9075,116.39723,China
+g1809858,Guangzhou,广州市,🇨🇳,Asia,23.11667,113.25,China
+g1795565,Shenzhen,,🇨🇳,Asia,22.54554,114.0683,China
+g2314302,Kinshasa,金沙萨,🇨🇩,Africa,-4.32758,15.31357,Democratic Republic of the Congo
+g745044,Istanbul,伊斯坦布尔,🇹🇷,Asia,41.01384,28.94966,Turkey
+g2332459,Lagos,拉各斯,🇳🇬,Africa,6.45407,3.39467,Nigeria
+g1566083,Ho Chi Minh City,胡志明市,🇻🇳,Asia,10.82302,106.62965,Vietnam
+g1792947,Tianjin,天津,🇨🇳,Asia,39.14222,117.17667,China
+g1791247,Wuhan,武汉市,🇨🇳,Asia,30.58333,114.26667,China
+g1172451,Lahore,拉合尔,🇵🇰,Asia,31.558,74.35071,Pakistan
+g1790630,Xi'an,西安市,🇨🇳,Asia,34.25833,108.92861,China
+g1275339,Mumbai,孟买,🇮🇳,Asia,19.07283,72.88261,India
+g3448439,Sao Paulo,,🇧🇷,South America,-23.5475,-46.63611,Brazil
+g3530597,Mexico City,墨西哥城,🇲🇽,North America,19.42847,-99.12766,Mexico
+g1808926,Hangzhou,杭州市,🇨🇳,Asia,30.29365,120.16142,China
+g1174872,Karachi,卡拉奇,🇵🇰,Asia,24.8608,67.0104,Pakistan
+g1273294,Delhi,德里,🇮🇳,Asia,28.65195,77.23149,India
+g524901,Moscow,莫斯科,🇷🇺,Europe,55.75204,37.61781,Russia
+g1185241,Dhaka,达卡,🇧🇩,Asia,23.7104,90.40744,Bangladesh
+g1835848,Seoul,首尔,🇰🇷,Asia,37.566,126.9784,South Korea
+g2037013,Harbin,哈尔滨市,🇨🇳,Asia,45.75,126.65,China
+g1850147,Tokyo,东京都,🇯🇵,Asia,35.6895,139.69171,Japan
+g1812545,Dongguan,东莞市,🇨🇳,Asia,23.01797,113.74866,China
+g360630,Cairo,开罗,🇪🇬,Africa,30.06263,31.24967,Egypt
+g1808722,Hefei,合肥市,🇨🇳,Asia,31.86389,117.28083,China
+g993800,Johannesburg,约翰内斯堡,🇿🇦,Africa,-26.20227,28.04363,South Africa
+g1791681,Weifang,潍坊市,🇨🇳,Asia,36.71,119.10194,China
+g1799962,Nanjing,南京市,🇨🇳,Asia,32.06167,118.77778,China
+g2034937,Shenyang,沈阳市,🇨🇳,Asia,41.79222,123.43278,China
+g1811103,Foshan,佛山市,🇨🇳,Asia,23.02677,113.13148,China
+g2643743,London,伦敦,🇬🇧,Europe,51.50853,-0.12574,United Kingdom
+g5128581,New York City,纽约,🇺🇸,North America,40.71427,-74.00597,United States
+g1642911,Jakarta,雅加达,🇮🇩,Asia,-6.21462,106.84513,Indonesia
+g1277333,Bengaluru,班加罗尔,🇮🇳,Asia,12.97194,77.59369,India
+g1805753,Jinan,济南市,🇨🇳,Asia,36.66833,116.99722,China
+g1581130,Hanoi,河内,🇻🇳,Asia,21.0245,105.84117,Vietnam
+g1668341,Taipei,台北市,📍,Asia,25.05306,121.52639,Taiwan
+g3936456,Lima,利马,🇵🇪,South America,-12.04318,-77.02824,Peru
+g3688689,Bogota,波哥大,🇨🇴,South America,4.60971,-74.08175,Colombia
+g1814087,Dalian,大连市,🇨🇳,Asia,38.91222,121.60222,China
+g1819729,Hong Kong,,🇭🇰,Asia,22.27832,114.17469,Hong Kong
+g98182,Baghdad,巴格达,🇮🇶,Asia,33.34058,44.40088,Iraq
+g1790842,Wuzhong,吴忠市,🇨🇳,Asia,37.9867,106.201,China
+g1797929,Qingdao,青岛市,🇨🇳,Asia,36.06488,120.38042,China
+g112931,Tehran,德黑兰,🇮🇷,Asia,35.69439,51.42151,Iran
+g1787093,Yantai,烟台市,🇨🇳,Asia,37.47649,121.44081,China
+g1269843,Hyderabad,海得拉巴,🇮🇳,Asia,17.38405,78.45636,India
+g3451190,Rio de Janeiro,,🇧🇷,South America,-22.90642,-43.18223,Brazil
+g1886760,Suzhou,苏州市,🇨🇳,Asia,31.30408,120.59538,China
+g11072148,Puxi,,🇨🇳,Asia,31.24414,121.46592,China
+g1784658,Zhengzhou,郑州市,🇨🇳,Asia,34.75778,113.64861,China
+g1279233,Ahmedabad,艾哈迈达巴德,🇮🇳,Asia,23.02579,72.58727,India
+g2293538,Abidjan,阿比让,🇨🇮,Africa,5.35444,-4.00167,Ivory Coast
+g1799869,Nanning,南宁市,🇨🇳,Asia,22.81667,108.31667,China
+g1804651,Kunming,昆明市,🇨🇳,Asia,25.03889,102.71833,China
+g1795270,Shijiazhuang,,🇨🇳,Asia,38.04139,114.47861,China
+g2038180,Changchun,长春市,🇨🇳,Asia,43.88,125.32278,China
+g1798524,Pudong,,🇨🇳,Asia,31.23995,121.50094,China
+g2147714,Sydney,悉尼,🇦🇺,Oceania,-33.86785,151.20732,Australia
+g1880252,Singapore,,🇸🇬,Asia,1.28967,103.85007,Singapore
+g2158177,Melbourne,墨尔本,🇦🇺,Oceania,-37.814,144.96332,Australia
+g160263,Dar es Salaam,达累斯萨拉姆,🇹🇿,Africa,-6.82349,39.26951,Tanzania
+g498817,Saint Petersburg,圣彼得堡,🇷🇺,Europe,59.93863,30.31413,Russia
+g1793511,Taiyuan,太原市,🇨🇳,Asia,37.86944,112.56028,China
+g361058,Alexandria,亚历山大,🇪🇬,Africa,31.20176,29.91582,Egypt
+g1609350,Bangkok,曼谷,🇹🇭,Asia,13.75398,100.50144,Thailand
+g2335204,Kano,卡诺,🇳🇬,Africa,12.00012,8.51672,Nigeria
+g3871336,Santiago,圣地亚哥,🇨🇱,South America,-33.45694,-70.64827,Chile
+g3369157,Cape Town,开普敦,🇿🇦,Africa,-33.92584,18.42322,South Africa
+g1168197,Peshawar,白沙瓦,🇵🇰,Asia,34.008,71.57849,Pakistan
+g1785286,Zibo,淄博市,🇨🇳,Asia,36.79056,118.06333,China
+g105343,Jeddah,吉达,🇸🇦,Asia,21.49012,39.18624,Saudi Arabia
+g1264527,Chennai,金奈,🇮🇳,Asia,13.08784,80.27847,India
+g1275004,Kolkata,加尔各答,🇮🇳,Asia,22.56263,88.36304,India
+g1790645,Xiamen,厦门市,🇨🇳,Asia,24.47979,118.08187,China
+g1255364,Surat,苏拉特,🇮🇳,Asia,21.19594,72.83023,India
+g1787227,Yangzhou,扬州市,🇨🇳,Asia,32.39722,119.43583,China
+g1797873,Huai'an,淮安市,🇨🇳,Asia,33.58861,119.01917,China
+g1809461,Guiyang,贵阳市,🇨🇳,Asia,26.58333,106.71667,China
+g1298824,Yangon,仰光,🇲🇲,Asia,16.80528,96.15611,Myanmar
+g13308620,Bao'an,,🇨🇳,Asia,22.55213,113.88288,China
+g1138958,Kabul,喀布尔,🇦🇫,Asia,34.52813,69.17233,Afghanistan
+g184745,Nairobi,内罗毕,🇰🇪,Africa,-1.28333,36.81667,Kenya
+g1790923,Wuxi,无锡市,🇨🇳,Asia,31.56887,120.28857,China
+g360995,Giza,吉萨,🇪🇬,Africa,30.00944,31.20861,Egypt
+g1804430,Lanzhou,兰州市,🇨🇳,Asia,36.05701,103.83987,China
+g2460596,Bamako,,🇲🇱,Africa,12.60915,-7.97522,Mali
+g108410,Riyadh,利雅得,🇸🇦,Asia,24.68773,46.72185,Saudi Arabia
+g1810821,Fuzhou,福州市,🇨🇳,Asia,26.06139,119.30611,China
+g1529102,UEruemqi,乌鲁木齐市,🇨🇳,Asia,43.80096,87.60046,China
+g12908892,New Taipei City,,📍,Asia,25.06199,121.45703,Taiwan
+g12747063,New Territories,,🇭🇰,Asia,22.42441,114.11095,Hong Kong
+g1205733,Chattogram,吉大港,🇧🇩,Asia,22.3384,91.83168,Bangladesh
+g344979,Addis Ababa,亚的斯亚贝巴,🇪🇹,Africa,9.02497,38.74689,Ethiopia
+g1785453,Zaozhuang,枣庄市,🇨🇳,Asia,34.86472,117.55417,China
+g6986104,Zhongshan,中山,🇨🇳,Asia,22.52306,113.37912,China
+g1795940,Shantou,,🇨🇳,Asia,23.35489,116.67876,China
+g5368361,Los Angeles,洛杉矶,🇺🇸,North America,34.05223,-118.24368,United States
+g1179400,Faisalabad,费萨拉巴德,🇵🇰,Asia,31.41554,73.08969,Pakistan
+g292223,Dubai,迪拜,🇦🇪,Asia,25.07725,55.30927,United Arab Emirates
+g1848354,Yokohama,横滨市,🇯🇵,Asia,35.43333,139.65,Japan
+g1799397,Ningbo,宁波市,🇨🇳,Asia,29.87819,121.54945,China
+g1912214,Nanhai,,🇨🇳,Asia,23.02193,113.14278,China
+g2553604,Casablanca,卡萨布兰卡,🇲🇦,Africa,33.58831,-7.61138,Morocco
+g2339354,Ibadan,伊巴丹,🇳🇬,Africa,7.37756,3.90591,Nigeria
+g1798425,Puyang,浦阳街道,🇨🇳,Asia,29.45679,119.88872,China
+g323786,Ankara,安卡拉,🇹🇷,Asia,39.91987,32.85427,Turkey
+g1794903,Shiyan,十堰市,🇨🇳,Asia,32.6475,110.77806,China
+g2036892,Hohhot,呼和浩特市,🇨🇳,Asia,40.81056,111.65222,China
+g2950159,Berlin,柏林,🇩🇪,Europe,52.52437,13.41053,Germany
+g1793346,Tangshan,,🇨🇳,Asia,39.64381,118.18319,China
+g1166993,Rawalpindi,拉瓦尔品第,🇵🇰,Asia,33.59733,73.0479,Pakistan
+g13512505,Lueliang,,🇨🇳,Asia,37.5192,111.14436,China
+g1007311,Durban,德班,🇿🇦,Africa,-29.8579,31.0292,South Africa
+g2038632,Anshan,鞍山市,🇨🇳,Asia,41.12361,122.99,China
+g1815456,Changzhou,常州市,🇨🇳,Asia,31.77359,119.95401,China
+g1838524,Busan,釜山,🇰🇷,Asia,35.10168,129.03004,South Korea
+g3117735,Madrid,,🇪🇸,Europe,40.4165,-3.70256,Spain
+g1871859,Pyongyang,,🇰🇵,Asia,39.03385,125.75432,North Korea
+g1259229,Pune,浦那,🇮🇳,Asia,18.51957,73.85535,India
+g2037799,Datong,大同市,🇨🇳,Asia,40.09361,113.29139,China
+g750269,Bursa,布尔萨,🇹🇷,Asia,40.19559,29.06013,Turkey
+g1815577,Changsha,,🇨🇳,Asia,28.19874,112.97087,China
+g1692192,Quezon City,奎松市,🇵🇭,Asia,14.6488,121.0509,Philippines
+g1269515,Jaipur,斋浦尔,🇮🇳,Asia,26.91962,75.78781,India
+g1807681,Huainan,,🇨🇳,Asia,32.62639,116.99694,China
+g1625822,Surabaya,泗水,🇮🇩,Asia,-7.24917,112.75083,Indonesia
+g1843564,Incheon,,🇰🇷,Asia,37.45646,126.70515,South Korea
+g1809078,Haikou,海口市,🇨🇳,Asia,20.03421,110.34651,China
+g3646738,Caracas,加拉加斯,🇻🇪,South America,10.48801,-66.87919,Venezuela
+g703448,Kyiv,基辅,🇺🇦,Europe,50.45466,30.5238,Ukraine
+g311046,Izmir,伊兹密尔,🇹🇷,Asia,38.41273,27.13838,Turkey
+g1806776,Huizhou,惠州市,🇨🇳,Asia,23.11147,114.41523,China
+g3435910,Buenos Aires,布宜诺斯艾利斯,🇦🇷,South America,-34.61315,-58.37723,Argentina
+g1786657,Yinchuan,银川市,🇨🇳,Asia,38.46806,106.27306,China
+g1668399,Taichung,,📍,Asia,24.1469,120.6839,Taiwan
+g1267995,Kanpur,坎普尔,🇮🇳,Asia,26.46523,80.34975,India
+g6167865,Toronto,多伦多,🇨🇦,North America,43.65333,-79.38389,Canada
+g3652462,Quito,基多,🇪🇨,South America,-0.22985,-78.52495,Ecuador
+g2174003,Brisbane,布里斯班,🇦🇺,Oceania,-27.46794,153.02809,Australia
+g2240449,Luanda,罗安达,🇦🇴,Africa,-8.83682,13.23432,Angola
+g2038432,Baotou,包头市,🇨🇳,Asia,40.6516,109.84389,China
+g1853909,Osaka,大阪市,🇯🇵,Asia,34.69379,135.50107,Japan
+g1803318,Linyi,临沂市,🇨🇳,Asia,35.06306,118.34278,China
+g1816971,Baoding,保定市,🇨🇳,Asia,38.87288,115.46246,China
+g1673820,Kaohsiung,高雄市,📍,Asia,22.61626,120.31333,Taiwan
+g5110302,Brooklyn,布鲁克林区,🇺🇸,North America,40.6501,-73.94958,United States
+g3657509,Guayaquil,瓜亚基尔,🇪🇨,South America,-2.19616,-79.88621,Ecuador
+g3470127,Belo Horizonte,,🇧🇷,South America,-19.92083,-43.93778,Brazil
+g1800480,Minhang,,🇨🇳,Asia,31.10881,121.37471,China
+g11995100,Bazhong,,🇨🇳,Asia,31.8694,106.74432,China
+g3450554,Salvador,,🇧🇷,South America,-12.97563,-38.49096,Brazil
+g2352778,Abuja,阿布贾,🇳🇬,Africa,9.05785,7.49508,Nigeria
+g1200109,Gazipur,,🇧🇩,Asia,23.99844,90.42234,Bangladesh
+g4887398,Chicago,芝加哥,🇺🇸,North America,41.85003,-87.65005,United States
+g1791388,Wenzhou,温州市,🇨🇳,Asia,27.99942,120.66682,China
+g1649378,Bekasi,勿加泗,🇮🇩,Asia,-6.2349,106.9896,Indonesia
+g2253354,Dakar,达喀尔,🇸🇳,Africa,14.6937,-17.44406,Senegal
+g1581298,Haiphong,,🇻🇳,Asia,20.86481,106.68345,Vietnam
+g1785725,Yunfu,云浮市,🇨🇳,Asia,22.92787,112.03809,China
+g6619347,Navi Mumbai,新孟買,🇮🇳,Asia,19.03681,73.01582,India
+g53654,Mogadishu,摩加迪休,🇸🇴,Africa,2.03711,45.34375,Somalia
+g2298890,Kumasi,库马西,🇬🇭,Africa,6.68848,-1.62443,Ghana
+g1650357,Bandung,,🇮🇩,Asia,-6.92222,107.60694,Indonesia
+g1177662,Gujranwala,古吉兰瓦拉,🇵🇰,Asia,32.15567,74.18705,Pakistan
+g1214520,Medan,棉兰,🇮🇩,Asia,3.58333,98.66667,Indonesia
+g1264733,Lucknow,勒克瑙,🇮🇳,Asia,26.83928,80.92313,India
+g1788852,Xining,西宁市,🇨🇳,Asia,36.62554,101.75739,China
+g2357048,Ouagadougou,瓦加杜古,🇧🇫,Africa,12.36566,-1.53388,Burkina Faso
+g1262180,Nagpur,那格浦尔,🇮🇳,Asia,21.14631,79.08491,India
+g3399415,Fortaleza,,🇧🇷,South America,-3.71722,-38.54306,Brazil
+g3687925,Cali,,🇨🇴,South America,3.43054,-76.5199,Colombia
+g2063523,Perth,珀斯,🇦🇺,Oceania,-31.95224,115.8614,Australia
+g1835329,Daegu,,🇰🇷,Asia,35.87102,128.60121,South Korea
+g2507480,Algiers,阿尔及尔,🇩🇿,Africa,36.73225,3.08746,Algeria
+g1800163,Nanchang,,🇨🇳,Asia,28.68396,115.85306,China
+g587084,Baku,,🇦🇿,Asia,40.37767,49.89201,Azerbaijan
+g1856057,Nagoya,名古屋市,🇯🇵,Asia,35.18147,136.90641,Japan
+g3169070,Rome,罗马,🇮🇹,Europe,41.89193,12.51133,Italy
+g5133273,Queens,皇后區,🇺🇸,North America,40.68149,-73.83652,United States
+g4699066,Houston,休斯敦,🇺🇸,North America,29.76328,-95.36327,United States
+g124665,Mashhad,马什哈德,🇮🇷,Asia,36.29807,59.60567,Iran
+g1795855,Shaoxing,绍兴市,🇨🇳,Asia,30.00237,120.57864,China
+g1799722,Nantong,南通市,🇨🇳,Asia,32.03028,120.87472,China
+g1816917,Baoshan,,🇨🇳,Asia,31.40845,121.48956,China
+g1819609,Kowloon,九龙,🇭🇰,Asia,22.31667,114.18333,Hong Kong
+g314830,Gaziantep,加济安泰普,🇹🇷,Asia,37.05944,37.3825,Turkey
+g922704,Lubumbashi,卢本巴希,🇨🇩,Africa,-11.66089,27.47938,Democratic Republic of the Congo
+g3663517,Manaus,,🇧🇷,South America,-3.10194,-60.025,Brazil
+g909137,Lusaka,卢萨卡,🇿🇲,Africa,-15.40669,28.28713,Zambia
+g3469058,Brasilia,巴西利亚,🇧🇷,South America,-15.77972,-47.92972,Brazil
+g1790437,Zhuhai,珠海市,🇨🇳,Asia,22.27694,113.56778,China
+g3492908,Santo Domingo,圣多明各,🇩🇴,North America,18.47186,-69.89232,Dominican Republic
+g2365267,Lome,洛美,🇹🇬,Africa,6.12874,1.22154,Togo
+g1169825,Multan,木尔坦,🇵🇰,Asia,30.19679,71.47824,Pakistan
+g3553478,Havana,哈瓦那,🇨🇺,North America,23.13302,-82.38304,Cuba
+g1645524,Depok,,🇮🇩,Asia,-6.4,106.81861,Indonesia
+g8347664,Ordos,,🇨🇳,Asia,39.6086,109.78157,China
+g2988507,Paris,巴黎,🇫🇷,Europe,48.85341,2.3488,France
+g1273865,Coimbatore,哥印拜陀,🇮🇳,Asia,11.00555,76.96612,India
+g12359313,Qingyang,,🇨🇳,Asia,35.70976,107.64455,China
+g2324774,Port Harcourt,哈科特港,🇳🇬,Africa,4.77742,7.0134,Nigeria
+g964137,Pretoria,比勒陀利亚,🇿🇦,Africa,-25.74486,28.18783,South Africa
+g3860259,Cordoba,科尔多瓦,🇦🇷,South America,-31.40648,-64.18853,Argentina
+g209228,Mbuji-Mayi,,🇨🇩,Africa,-6.13603,23.58979,Democratic Republic of the Congo
+g170063,Aleppo,阿勒颇,🇸🇾,Asia,36.20124,37.16117,Syria
+g1785623,Kunshan,昆山市,🇨🇳,Asia,31.37762,120.95431,China
+g99071,Al Mawsil al Jadidah,,🇮🇶,Asia,36.33271,43.10555,Iraq
+g1783621,Zunyi,遵义市,🇨🇳,Asia,27.68667,106.90722,China
+g3911925,La Paz,拉巴斯,🇧🇴,South America,-16.5,-68.15,Bolivia
+g10859300,Lianyungang,,🇨🇳,Asia,34.59845,119.21556,China
+g3674962,Medellin,,🇨🇴,South America,6.245,-75.57151,Colombia
+g1802940,Puning,普宁市,🇨🇳,Asia,23.31072,116.16869,China
+g1269743,Indore,印多尔,🇮🇳,Asia,22.71792,75.8333,India
+g2260535,Brazzaville,布拉柴维尔,🇨🇬,Africa,-4.26613,15.28318,Republic of the Congo
+g1512569,Tashkent,塔什干,🇺🇿,Asia,41.26465,69.21627,Uzbekistan
+g1810638,Ganzhou,赣州市,🇨🇳,Asia,25.84664,114.9326,China
+g1526384,Almaty,阿拉木图,🇰🇿,Asia,43.25249,76.9115,Kazakhstan
+g379252,Khartoum,喀土穆,🇸🇩,Africa,15.55177,32.53241,Sudan
+g2911298,Hamburg,汉堡,🇩🇪,Europe,53.55073,9.99302,Germany
+g2128295,Sapporo,札幌市,🇯🇵,Asia,43.06667,141.35,Japan
+g1794035,Songjiang,,🇨🇳,Asia,31.03443,121.22326,China
+g2306104,Accra,阿克拉,🇬🇭,Africa,5.55602,-0.1969,Ghana
+g3464975,Curitiba,,🇧🇷,South America,-25.42778,-49.27306,Brazil
+g71137,Sanaa,萨那,🇾🇪,Asia,15.35452,44.20646,Yemen
+g2422465,Conakry,科纳克里,🇬🇳,Africa,9.53795,-13.67729,Guinea
+g1625084,Tangerang,丹格朗,🇮🇩,Asia,-6.17806,106.63,Indonesia
+g3981609,Tijuana,蒂华纳,🇲🇽,North America,32.5027,-117.00371,Mexico
+g1176734,Hyderabad,海得拉巴,🇵🇰,Asia,25.39689,68.37718,Pakistan
+g276781,Beirut,贝鲁特,🇱🇧,Asia,33.89332,35.50157,Lebanon
+g1797121,Jieyang,揭阳市,🇨🇳,Asia,23.5418,116.36581,China
+g2036502,Jilin,吉林市,🇨🇳,Asia,43.84652,126.5608,China
+g1806508,Jiading,嘉定镇街道,🇨🇳,Asia,31.38575,121.24465,China
+g683506,Bucharest,布加勒斯特,🇷🇴,Europe,44.43225,26.10626,Romania
+g2422488,Camayenne,,🇬🇳,Africa,9.535,-13.68778,Guinea
+g195272,Kakamega,卡卡梅加,🇰🇪,Africa,0.28422,34.75229,Kenya
+g1796134,Shangqiu,,🇨🇳,Asia,34.4143,115.65613,China
+g1800146,Nanchong,南充市,🇨🇳,Asia,30.79508,106.08473,China
+g1668355,Tainan,台南市,📍,Asia,22.99259,120.20507,Taiwan
+g2335727,Kaduna,卡杜纳,🇳🇬,Africa,10.52641,7.43879,Nigeria
+g365137,Omdurman,恩图曼,🇸🇩,Africa,15.64453,32.47773,Sudan
+g1715348,Davao,达沃市,🇵🇭,Asia,7.07306,125.61278,Philippines
+g1254661,Thane,塔那,🇮🇳,Asia,19.19704,72.96355,India
+g3526683,Iztapalapa,,🇲🇽,North America,19.35529,-99.06224,Mexico
+g316541,Diyarbakir,迪亚巴克尔,🇹🇷,Asia,37.91363,40.21721,Turkey
+g3904906,Santa Cruz de la Sierra,圣克鲁斯-德拉谢拉,🇧🇴,South America,-17.78629,-63.18117,Bolivia
+g1253573,Vadodara,瓦多达拉,🇮🇳,Asia,22.29941,73.20812,India
+g325363,Adana,阿达纳,🇹🇷,Asia,36.98615,35.32531,Turkey
+g1799629,Nanyang,南阳市,🇨🇳,Asia,33.00524,112.54659,China
+g292968,Abu Dhabi,阿布扎比,🇦🇪,Asia,24.45118,54.39696,United Arab Emirates
+g1633070,Palembang,巨港,🇮🇩,Asia,-2.91673,104.7458,Indonesia
+g292672,Sharjah,沙迦,🇦🇪,Asia,25.3342,55.41221,United Arab Emirates
+g1275841,Bhopal,博帕尔,🇮🇳,Asia,23.25469,77.40289,India
+g1806299,Jiangmen,江门市,🇨🇳,Asia,22.58333,113.08333,China
+g2347283,Benin City,贝宁城,🇳🇬,Africa,6.33815,5.62575,Nigeria
+g1815251,Jiangyin,江阴市,🇨🇳,Asia,31.91102,120.26302,China
+g1810845,Fuyang,阜阳市,🇨🇳,Asia,32.9,115.81667,China
+g6077243,Montreal,蒙特利尔,🇨🇦,North America,45.50884,-73.58781,Canada
+g11838258,Bayan Nur,,🇨🇳,Asia,40.74143,107.38599,China
+g1793036,Chengtangcun,滕州市,🇨🇳,Asia,35.08357,117.19071,China
+g3633009,Maracaibo,马拉开波,🇻🇪,South America,10.64232,-71.61089,Venezuela
+g1815395,Chaozhou,潮州市,🇨🇳,Asia,23.65396,116.62262,China
+g625144,Minsk,明斯克,🇧🇾,Europe,53.90019,27.56653,Belarus
+g3054643,Budapest,布达佩斯,🇭🇺,Europe,47.49835,19.04045,Hungary
+g1797945,Qingyuan,清远市,🇨🇳,Asia,23.7,113.03333,China
+g1793724,Tai'an,泰安市,🇨🇳,Asia,36.18528,117.12,China
+g1258393,Rasapudipalem,,🇮🇳,Asia,17.73308,83.31622,India
+g7626690,Pimpri-Chinchwad,宾布里-金杰沃德,🇮🇳,Asia,18.61867,73.80375,India
+g1720151,Caloocan,,🇵🇭,Asia,14.64953,120.96788,Philippines
+g756135,Warsaw,华沙,🇵🇱,Europe,52.22977,21.01178,Poland
+g953781,Soweto,索韦托,🇿🇦,Africa,-26.26781,27.85849,South Africa
+g1627896,Semarang,三宝垄,🇮🇩,Asia,-6.99306,110.42083,Indonesia
+g3521081,Puebla,普埃布拉,🇲🇽,North America,19.04778,-98.20723,Mexico
+g2761369,Vienna,维也纳,🇦🇹,Europe,48.20849,16.37208,Austria
+g3128760,Barcelona,,🇪🇸,Europe,41.38879,2.15899,Spain
+g1260086,Patna,巴特那,🇮🇳,Asia,25.59408,85.13563,India
+g99072,Mosul,摩苏尔,🇮🇶,Asia,36.335,43.11889,Iraq
+g12165956,Kallakurichi,,🇮🇳,Asia,11.73379,78.95925,India
+g232422,Kampala,坎帕拉,🇺🇬,Africa,0.31628,32.58219,Uganda
+g7283386,Changshu,,🇨🇳,Asia,31.64615,120.74221,China
+g2538475,Rabat,拉巴特,🇲🇦,Africa,34.01325,-6.83255,Morocco
+g3390760,Recife,,🇧🇷,South America,-8.05389,-34.88111,Brazil
+g5308655,Phoenix,菲尼克斯,🇺🇸,North America,33.44838,-112.07404,United States
+g1793743,Suzhou,,🇨🇳,Asia,33.63611,116.97889,China
+g3529612,Ecatepec de Morelos,埃卡特佩克莫雷洛斯,🇲🇽,North America,19.60006,-99.04855,Mexico
+g1802206,Lu'an,六安市,🇨🇳,Asia,31.73561,116.51688,China
+g3625549,Valencia,巴伦西亚,🇻🇪,South America,10.16153,-68.00044,Venezuela
+g1264728,Ludhiana,卢迪亚纳,🇮🇳,Asia,30.91204,75.85379,India
+g1787746,Yancheng,,🇨🇳,Asia,33.3575,120.1573,China
+g1496747,Novosibirsk,新西伯利亚,🇷🇺,Europe,55.02259,82.93175,Russia
+g95446,Erbil,埃尔比勒,🇮🇶,Asia,36.19117,44.00943,Iraq
+g1863967,Fukuoka,福冈市,🇯🇵,Asia,33.6,130.41667,Japan
+g1793505,Taizhou,泰州市,🇨🇳,Asia,32.49069,119.90812,China
+g2037860,Daqing,大庆市,🇨🇳,Asia,46.58333,125.0,China
+g212730,Kisangani,基桑加尼,🇨🇩,Africa,0.51528,25.19099,Democratic Republic of the Congo
+g1701668,Manila,马尼拉,🇵🇭,Asia,14.6042,120.9822,Philippines
+g1791236,Wuhu,芜湖市,🇨🇳,Asia,31.35259,118.42947,China
+g3991164,Santiago de Queretaro,克雷塔罗,🇲🇽,North America,20.58806,-100.38806,Mexico
+g1813325,Dazhou,达州市,🇨🇳,Asia,31.2106,107.46308,China
+g3998655,Leon de los Aldama,莱昂,🇲🇽,North America,21.12183,-101.68253,Mexico
+g104515,Makkah,麦加,🇸🇦,Asia,21.42664,39.82563,Saudi Arabia
+g4560349,Philadelphia,费城,🇺🇸,North America,39.95238,-75.16362,United States
+g1821306,Phnom Penh,金边,🇰🇭,Asia,11.56245,104.91601,Cambodia
+g1809498,Guilin,桂林市,🇨🇳,Asia,25.28022,110.29639,China
+g170654,Damascus,大马士革,🇸🇾,Asia,33.5102,36.29128,Syria
+g1167528,Quetta,奎达,🇵🇰,Asia,30.18414,67.00141,Pakistan
+g1784853,Zhaoqing,肇庆市,🇨🇳,Asia,23.04893,112.46091,China
+g2326016,Onitsha,奥尼查,🇳🇬,Africa,6.14978,6.78569,Nigeria
+g1800627,Mianyang,绵阳市,🇨🇳,Asia,31.46784,104.68168,China
+g2193733,Auckland,奥克兰都会区,🇳🇿,Oceania,-36.84853,174.76349,New Zealand
+g418863,Isfahan,伊斯法罕,🇮🇷,Asia,32.65246,51.67462,Iran
+g12358576,Wanzhou,,🇨🇳,Asia,30.76451,108.39586,China
+g1526273,Astana,阿斯塔纳,🇰🇿,Asia,51.1801,71.44598,Kazakhstan
+g890299,Harare,哈拉雷,🇿🇼,Africa,-17.82772,31.05337,Zimbabwe
+g2274895,Monrovia,蒙罗维亚,🇱🇷,Africa,6.30054,-10.7969,Liberia
+g1798449,Putian,莆田市,🇨🇳,Asia,25.43944,119.01028,China
+g1859642,Kawasaki,,🇯🇵,Asia,35.52056,139.71722,Japan
+g3462377,Goiania,,🇧🇷,South America,-16.67861,-49.25389,Brazil
+g4726206,San Antonio,圣安东尼奥,🇺🇸,North America,29.42412,-98.49363,United States
+g1859171,Kobe,神户市,🇯🇵,Asia,34.6913,135.183,Japan
+g2036427,Jinzhou,锦州市,🇨🇳,Asia,41.10778,121.14167,China
+g2673730,Stockholm,斯德哥尔摩,🇸🇪,Europe,59.32938,18.06871,Sweden
+g4013708,Ciudad Juarez,华雷斯城,🇲🇽,North America,31.72024,-106.46084,Mexico
+g1586203,Can Tho,,🇻🇳,Asia,10.03711,105.78825,Vietnam
+g2867714,Munich,慕尼黑,🇩🇪,Europe,48.13743,11.57549,Germany
+g1336135,Khulna,库尔纳市,🇧🇩,Asia,22.80979,89.56439,Bangladesh
+g3439389,Asuncion,亚松森,🇵🇾,South America,-25.28646,-57.647,Paraguay
+g1735161,Kuala Lumpur,吉隆坡,🇲🇾,Asia,3.1412,101.68653,Malaysia
+g1283240,Kathmandu,加德满都,🇳🇵,Asia,27.70169,85.3206,Nepal
+g2427123,N'Djamena,恩贾梅纳,🇹🇩,Africa,12.10672,15.0444,Chad
+g1070940,Antananarivo,塔那那利佛,🇲🇬,Africa,-18.91368,47.53613,Madagascar
+g2440485,Niamey,尼亚美,🇳🇪,Africa,13.51366,2.1098,Niger
+g2210247,Tripoli,的黎波里,🇱🇾,Africa,32.88743,13.18733,Libya
+g2220957,Yaounde,雅温得,🇨🇲,Africa,3.86667,11.51667,Cameroon
+g250441,Amman,安曼,🇯🇴,Asia,31.95522,35.94503,Jordan
+g792680,Belgrade,贝尔格莱德,🇷🇸,Europe,44.80401,20.46513,Serbia
+g3441575,Montevideo,蒙得维的亚,🇺🇾,South America,-34.90328,-56.18816,Uruguay
+g1040652,Maputo,马普托,🇲🇿,Africa,-25.96553,32.58322,Mozambique
+g3718426,Port-au-Prince,,🇭🇹,North America,18.54349,-72.33881,Haiti
+g2377450,Nouakchott,努瓦克肖特,🇲🇷,Africa,18.08581,-15.9785,Mauritania
+g3067696,Prague,布拉格,🇨🇿,Europe,50.08804,14.42076,Czechia
+g2618425,Copenhagen,哥本哈根,🇩🇰,Europe,55.67594,12.56553,Denmark
+g727011,Sofia,索非亚,🇧🇬,Europe,42.69751,23.32415,Bulgaria
+g616052,Yerevan,,🇦🇲,Asia,40.17765,44.5126,Armenia
+g202061,Kigali,基加利,🇷🇼,Africa,-1.94995,30.05885,Rwanda
+g927967,Lilongwe,利隆圭,🇲🇼,Africa,-13.96692,33.78725,Malawi
+g3143244,Oslo,奥斯陆,🇳🇴,Europe,59.91273,10.74609,Norway
+g611717,Tbilisi,第比利斯,🇬🇪,Asia,41.69143,44.83412,Georgia
+g162183,Ashgabat,阿什哈巴德,🇹🇲,Asia,37.95,58.38333,Turkmenistan
+g2964574,Dublin,都柏林,🇮🇪,Europe,53.33306,-6.24889,Ireland
+g2800866,Brussels,布鲁塞尔,🇧🇪,Europe,50.85045,4.34878,Belgium
+g6094817,Ottawa,渥太华,🇨🇦,North America,45.41117,-75.69812,Canada
+g3598132,Guatemala City,,🇬🇹,North America,14.64072,-90.51327,Guatemala
+g3617763,Managua,马那瓜,🇳🇮,North America,12.13282,-86.2504,Nicaragua
+g3489854,Kingston,金斯敦,🇯🇲,North America,17.99702,-76.79358,Jamaica
+g6611854,Nay Pyi Taw,内比都,🇲🇲,Asia,19.745,96.12972,Myanmar
+g1528675,Bishkek,,🇰🇬,Asia,42.87,74.59,Kyrgyzstan
+g3600949,Tegucigalpa,特古西加尔巴,🇭🇳,North America,14.0818,-87.20681,Honduras
+g2399697,Libreville,利伯维尔,🇬🇦,Africa,0.39241,9.45356,Gabon
+g2028462,Ulan Bator,乌兰巴托,🇲🇳,Asia,47.90771,106.88324,Mongolia
+g1651944,Vientiane,万象,🇱🇦,Asia,17.96667,102.6,Laos
+g2389853,Bangui,班吉,🇨🇫,Africa,4.36122,18.55496,Central African Republic
+g2409306,Freetown,弗里敦,🇸🇱,Africa,8.48714,-13.2356,Sierra Leone
+g287286,Muscat,马斯喀特,🇴🇲,Asia,23.58413,58.40778,Oman
+g160196,Dodoma,多多马,🇹🇿,Africa,-6.17221,35.73947,Tanzania
+g456172,Riga,里加,🇱🇻,Europe,56.946,24.10589,Latvia
+g2759794,Amsterdam,阿姆斯特丹,🇳🇱,Europe,52.37403,4.88969,The Netherlands
+g3191281,Sarajevo,萨拉热窝,🇧🇦,Europe,43.84864,18.35644,Bosnia and Herzegovina
+g2464470,Tunis,突尼斯市,🇹🇳,Africa,36.81897,10.16579,Tunisia
+g4140963,Washington,华盛顿哥伦比亚特区,🇺🇸,North America,38.89511,-77.03637,United States
+g1221874,Dushanbe,,🇹🇯,Asia,38.53575,68.77905,Tajikistan
+g264371,Athens,雅典,🇬🇷,Europe,37.98376,23.72784,Greece
+g3186886,Zagreb,萨格勒布,🇭🇷,Europe,45.81444,15.97798,Croatia
+g658225,Helsinki,赫尔辛基,🇫🇮,Europe,60.16952,24.93545,Finland
+g1821274,Macau,澳门,🇲🇴,Asia,22.20056,113.54611,Macao
+g1248991,Colombo,科伦坡,🇱🇰,Asia,6.93548,79.84868,Sri Lanka
+g618426,Chisinau,基希讷乌,🇲🇩,Europe,47.00902,28.85938,Moldova
+g223817,Djibouti,吉布提市,🇩🇯,Africa,11.58901,43.14503,Djibouti
+g1176615,Islamabad,伊斯兰堡,🇵🇰,Asia,33.72148,73.04329,Pakistan
+g343300,Asmara,阿斯马拉,🇪🇷,Africa,15.33805,38.93184,Eritrea
+g786714,Pristina,普里什蒂纳,🇽🇰,Europe,42.67272,21.16688,Kosovo
+g593116,Vilnius,维尔纽斯,🇱🇹,Europe,54.68916,25.2798,Lithuania
+g3583361,San Salvador,圣萨尔瓦多,🇸🇻,North America,13.68935,-89.18718,El Salvador
+g2267057,Lisbon,里斯本,🇵🇹,Europe,38.72509,-9.1498,Portugal
+g785842,Skopje,斯科普里,🇲🇰,Europe,41.99646,21.43141,North Macedonia
+g373303,Juba,朱巴,🇸🇸,Africa,4.85165,31.58247,South Sudan
+g2374775,Bissau,比绍,🇬🇼,Africa,11.86357,-15.59767,Guinea-Bissau
+g3060972,Bratislava,布拉迪斯拉发,🇸🇰,Europe,48.14816,17.10674,Slovakia
+g3183875,Tirana,地拉那,🇦🇱,Europe,41.32744,19.81866,Albania
+g4568127,San Juan,圣胡安,🇵🇷,North America,18.46633,-66.10572,Puerto Rico
+g3703443,Panama City,巴拿马城,🇵🇦,North America,8.9936,-79.51973,Panama
+g588409,Tallinn,塔林,🇪🇪,Europe,59.43696,24.75353,Estonia
+g3352136,Windhoek,温得和克,🇳🇦,Africa,-22.55941,17.08323,Namibia
+g2179537,Wellington,惠灵顿,🇳🇿,Oceania,-41.28664,174.77557,New Zealand
+g2172517,Canberra,堪培拉,🇦🇺,Oceania,-35.28346,149.12807,Australia
+g932505,Maseru,马塞卢,🇱🇸,Africa,-29.31667,27.48333,Lesotho
+g290030,Doha,多哈,🇶🇦,Asia,25.28545,51.53096,Qatar
+g3621849,San Jose,圣何塞,🇨🇷,North America,9.93388,-84.08489,Costa Rica
+g1261481,New Delhi,新德里,🇮🇳,Asia,28.62137,77.2148,India
+g2088122,Port Moresby,莫尔斯比港,🇵🇬,Oceania,-9.47723,147.15089,Papua New Guinea
+g2279755,Yamoussoukro,亚穆苏克罗,🇨🇮,Africa,6.82055,-5.27674,Ivory Coast
+g3196359,Ljubljana,卢布尔雅那,🇸🇮,Europe,46.05108,14.50513,Slovenia
+g2392087,Porto-Novo,波多诺伏,🇧🇯,Africa,6.49646,2.60359,Benin
+g933773,Gaborone,哈博罗内,🇧🇼,Africa,-24.65451,25.90859,Botswana
+g3193044,Podgorica,波德戈里察,🇲🇪,Europe,42.44124,19.26309,Montenegro
+g3378644,Georgetown,乔治敦,🇬🇾,South America,6.80448,-58.15527,Guyana
+g3571824,Nassau,拿骚,🇧🇸,North America,25.05823,-77.34306,Bahamas
+g3903987,Sucre,苏克雷,🇧🇴,South America,-19.03332,-65.26274,Bolivia
+g3383330,Paramaribo,帕拉马里博,🇸🇷,South America,5.86638,-55.16682,Suriname
+g146268,Nicosia,尼科西亚,🇨🇾,Europe,35.17284,33.35397,Cyprus
+g934154,Port Louis,路易港,🇲🇺,Africa,-20.16194,57.49889,Mauritius
+g935264,Saint-Denis,圣但尼,🇷🇪,Africa,-20.88231,55.4504,Reunion
+g1645457,Dili,帝力,🇹🇱,Oceania,-8.55861,125.57361,Timor Leste
+g290340,Manama,麦纳麦,🇧🇭,Asia,26.22787,50.58565,Bahrain
+g3374333,Praia,普拉亚,🇨🇻,Africa,14.93152,-23.51254,Cabo Verde
+g3513090,Willemstad,威廉斯塔德,🇨🇼,North America,12.12246,-68.88641,Curacao
+g2661552,Bern,,🇨🇭,Europe,46.94809,7.44744,Switzerland
+g3413829,Reykjavik,雷克雅未克,🇮🇸,Europe,64.13548,-21.89541,Iceland
+g1282027,Male,马累,🇲🇻,Asia,4.17521,73.50916,Maldives
+g1252416,Thimphu,廷布,🇧🇹,Asia,27.46609,89.64191,Bhutan
+g3374036,Bridgetown,布里奇顿,🇧🇧,North America,13.10732,-59.62021,Barbados
+g2139521,Noumea,努美阿,🇳🇨,Oceania,-22.27407,166.44884,New Caledonia
+g3570675,Fort-de-France,法兰西堡,🇲🇶,North America,14.60365,-61.07418,Martinique
+g2198148,Suva,苏瓦,🇫🇯,Oceania,-18.13683,178.42531,Fiji
+g2960316,Luxembourg,卢森堡市,🇱🇺,Europe,49.60982,6.13268,Luxembourg
+g934985,Mbabane,姆巴巴内,🇸🇿,Africa,-26.31667,31.13333,Eswatini
+g921772,Moroni,莫洛尼,🇰🇲,Africa,-11.70216,43.25506,Comoros
+g426272,Gitega,基特加,🇧🇮,Africa,-3.42708,29.92463,Burundi
+g1820906,Bandar Seri Begawan,斯里巴加湾市,🇧🇳,Asia,4.89035,114.94006,Brunei
+g3382160,Cayenne,卡宴,🇬🇫,South America,4.9381,-52.33455,French Guiana
+g285787,Kuwait City,科威特城,🇰🇼,Asia,29.367,47.97429,Kuwait
+g2108502,Honiara,霍尼亚拉,🇸🇧,Oceania,-9.43333,159.95,Solomon Islands
+g921815,Mamoudzou,马穆楚,🇾🇹,Africa,-12.78234,45.22878,Mayotte
+g2410763,Sao Tome,圣多美,🇸🇹,Africa,0.33756,6.7299,Sao Tome and Principe
+g3576022,Saint John's,圣约翰,🇦🇬,North America,17.12096,-61.84329,Antigua and Barbuda
+g3573890,Port of Spain,西班牙港,🇹🇹,North America,10.66668,-61.51889,Trinidad and Tobago
+g4035413,Apia,阿皮亚,🇼🇸,Oceania,-13.83333,-171.76666,Samoa
+g2110257,Tarawa,,🇰🇮,Oceania,1.3278,172.97696,Kiribati
+g2413876,Banjul,班珠尔,🇬🇲,Africa,13.45274,-16.57803,Gambia
+g2135171,Port-Vila,维拉港,🇻🇺,Oceania,-17.73648,168.31366,Vanuatu
+g3577154,Oranjestad,奥拉涅斯塔德,🇦🇼,North America,12.52398,-70.02703,Aruba
+g3580661,George Town,乔治敦,🇰🇾,North America,19.2866,-81.37436,Cayman Islands
+g3042091,Saint Helier,圣赫利尔,🇯🇪,Europe,49.18804,-2.10491,Jersey
+g4033936,Papeete,帕皮提,🇵🇫,Oceania,-17.5347,-149.56843,French Polynesia
+g3042237,Douglas,道格拉斯,🇮🇲,Europe,54.15,-4.48333,Isle of Man
+g3577887,Kingstown,金斯敦,🇻🇨,North America,13.15527,-61.22742,Saint Vincent and the Grenadines
+g241131,Victoria,维多利亚,🇸🇨,Africa,-4.62001,55.45501,Seychelles
+g4032402,Nuku'alofa,努库阿洛法,🇹🇴,Oceania,-21.13683,-175.20114,Tonga
+g3041563,Andorra la Vella,安道尔城,🇦🇩,Europe,42.50779,1.52109,Andorra
+g3576812,Castries,卡斯特里,🇱🇨,North America,13.9957,-61.00614,Saint Lucia
+g4795467,Charlotte Amalie,夏洛特阿马利亚,🇻🇮,North America,18.3419,-64.9307,U.S. Virgin Islands
+g3575635,Roseau,罗索,🇩🇲,North America,15.30174,-61.38808,Dominica
+g3042287,Saint Peter Port,圣彼得港,🇬🇬,Europe,49.45981,-2.53527,Guernsey
+g3421319,Nuuk,努克,🇬🇱,North America,64.18347,-51.72157,Greenland
+g3582672,Belmopan,贝尔墨邦,🇧🇿,North America,17.25376,-88.76401,Belize
+g2611396,Torshavn,托尔斯港,🇫🇴,Europe,62.00973,-6.77164,Faroe Islands
+g3579732,Basse-Terre,巴斯特尔,🇬🇵,North America,15.99714,-61.73214,Guadeloupe
+g3579925,Saint George's,圣乔治,🇬🇩,North America,12.05288,-61.75226,Grenada
+g2081986,Palikir,帕利基尔,🇫🇲,Oceania,6.92477,158.16109,Micronesia
+g2562305,Valletta,,🇲🇹,Europe,35.89968,14.5148,Malta
+g12226438,Ciudad de la Paz,,🇬🇶,Africa,1.5925,10.82361,Equatorial Guinea
+g4044012,Hagatna,阿加尼亚,🇬🇺,Oceania,13.47567,144.74886,Guam
+g3573197,Hamilton,哈密尔顿,🇧🇲,North America,32.2949,-64.78303,Bermuda
