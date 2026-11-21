@@ -6,15 +6,15 @@ nearest station within 60 km with a full 12-month record. Fallback: 30 years (19
 of Open-Meteo ERA5 daily data averaged by month."""
 import csv, gzip, io, json, math, sys, time, urllib.request
 
-def get(url, tries=4):
+def get(url, tries=2):
     for i in range(tries):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": "weather-station-classroom/1.0"})
-            with urllib.request.urlopen(req, timeout=120) as r:
+            with urllib.request.urlopen(req, timeout=40) as r:
                 return r.read()
         except Exception as e:
             err = e
-            time.sleep(3 * (i + 1))
+            time.sleep(2)
     raise err
 
 def km(a, b, c, d):
@@ -33,7 +33,7 @@ def meteostat(lat, lon):
         d = km(lat, lon, loc["latitude"], loc["longitude"])
         if d <= 60: near.append((d, s))
     near.sort(key=lambda x: x[0])
-    for d, s in near[:8]:
+    for d, s in near[:4]:
         try:
             raw = gzip.decompress(get("https://bulk.meteostat.net/v2/normals/%s.csv.gz" % s["id"])).decode()
         except Exception:
@@ -82,7 +82,7 @@ with open("tools/cities.csv", encoding="utf-8") as f:
             print("meteostat failed", c["id"], e, file=sys.stderr)
         if data is None:
             data = openmeteo(lat, lon)
-        print("%-12s %-40s %s" % (c["id"], data["source"], data["station"]), file=sys.stderr)
+        print("%-12s %-40s %s" % (c["id"], data["source"], data["station"]), flush=True)
         out.append({"id": c["id"], "en": c["en"], "zh": c["zh"], "flag": c["flag"], "region": c["region"],
                     "lat": lat, "lon": lon, **data})
 
