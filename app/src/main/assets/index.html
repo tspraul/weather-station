@@ -279,6 +279,7 @@ footer a{color:#8a8a95}
 </div>
 
 <script src="climate.js"></script>
+<script src="worldmap.js"></script>
 <script>
 // ---------------------------------------------------------------
 // Data source: the Android app provides window.Weather. In a normal
@@ -731,6 +732,66 @@ function climateNormal(out, note) {
   note.textContent = "Based on " + list.length + " full days. \"About normal\" means within 2 °C of usual. Usual values are long-term averages for " + home.en + ". Our board is by a window, so it can read a little differently from an official weather station.";
 }
 
+// ---------- World map (coastlines only, no country borders) ----------
+function mapXY(lon, lat) {
+  var M = window.WORLD_MAP, rad = Math.PI / 180, l = lon * rad, p = lat * rad, p2 = p * p, p4 = p2 * p2;
+  var x = l * (0.8707 - 0.131979 * p2 + p4 * (-0.013791 + p4 * (0.003971 * p2 - 0.001529 * p4)));
+  var y = p * (1.007226 + p2 * (0.015085 + p4 * (-0.044475 + 0.028874 * p2 - 0.005916 * p4)));
+  return [M.tx + M.s * x, M.ty - M.s * y];
+}
+var MAP_LABELS = [
+  ["North America", "北美洲", -102, 47], ["South America", "南美洲", -60, -12], ["Europe", "欧洲", 18, 54],
+  ["Africa", "非洲", 20, 8], ["Asia", "亚洲", 92, 52], ["Oceania", "大洋洲", 134, -24]
+];
+var SEA_LABELS = [["Pacific Ocean", "太平洋", -140, 28], ["Atlantic Ocean", "大西洋", -38, 28], ["Indian Ocean", "印度洋", 78, -22], ["Pacific Ocean", "太平洋", 155, 22]];
+function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+// o: {chosen:[city], home:id, value:function(c)->string, dots:[city] (tappable), matches:{id:true}, maxH}
+function worldMap(o) {
+  var M = window.WORLD_MAP;
+  if (!M) return "";
+  var s = '<svg viewBox="0 0 ' + M.W + ' ' + M.H + '" style="width:100%;max-height:' + (o.maxH || 560) + 'px;display:block;margin:0 auto" font-family="inherit">';
+  s += '<rect width="' + M.W + '" height="' + M.H + '" rx="10" fill="#dcebf7"/>';
+  s += '<path d="' + M.land + '" fill="#f4efe1" stroke="#c4b99c" stroke-width="0.7"/>';
+  var e0 = mapXY(-180, 0), e1 = mapXY(180, 0);
+  s += '<line x1="' + e0[0] + '" x2="' + e1[0] + '" y1="' + e0[1] + '" y2="' + e1[1] + '" stroke="#d9612b" stroke-width="1.4" stroke-dasharray="6 5"/>';
+  var eq = mapXY(-128, 0);
+  s += '<text x="' + eq[0] + '" y="' + (eq[1] - 6) + '" font-size="12" font-weight="700" fill="#d9612b">Equator 赤道</text>';
+  var nh = mapXY(-165, 4), sh = mapXY(-165, -4);
+  s += '<text x="' + nh[0] + '" y="' + (nh[1] - 22) + '" font-size="11" fill="#5b5b66">▲ Northern Hemisphere 北半球</text>';
+  s += '<text x="' + sh[0] + '" y="' + (sh[1] + 30) + '" font-size="11" fill="#5b5b66">▼ Southern Hemisphere 南半球</text>';
+  // every city we have, as small tappable dots
+  // matched dots last so they sit on top and win taps in busy areas
+  (o.dots || []).slice().sort(function (a, b) { return (o.matches && o.matches[a.id] ? 1 : 0) - (o.matches && o.matches[b.id] ? 1 : 0); }).forEach(function (c) {
+    if (o.chosen.some(function (x) { return x.id === c.id; })) return;
+    var p = mapXY(c.lon, c.lat), m = o.matches && o.matches[c.id];
+    s += '<g class="mapdot" data-c="' + c.id + '" style="cursor:pointer"><circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (m ? 10 : 6) + '" fill="transparent"/><circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (m ? 6 : 3.2) + '" fill="' + (m ? "#d9612b" : "#8f96a3") + '" stroke="#fff" stroke-width="' + (m ? 1.5 : 0.8) + '"/></g>';
+  });
+  // place names drawn over the dots, with a halo; taps go through them to the dots
+  s += '<g pointer-events="none">';
+  SEA_LABELS.forEach(function (a) { var p = mapXY(a[2], a[3]); s += '<text x="' + p[0] + '" y="' + p[1] + '" text-anchor="middle" font-size="12" font-style="italic" fill="#4d7aa8" stroke="#dcebf7" stroke-width="3" paint-order="stroke">' + a[0] + ' ' + a[1] + '</text>'; });
+  MAP_LABELS.forEach(function (a) { var p = mapXY(a[2], a[3]); s += '<text x="' + p[0] + '" y="' + p[1] + '" text-anchor="middle" font-size="14" font-weight="700" fill="#8a7d5c" letter-spacing="1" stroke="#f4efe1" stroke-width="3" paint-order="stroke">' + a[0].toUpperCase() + '</text><text x="' + p[0] + '" y="' + (p[1] + 16) + '" text-anchor="middle" font-size="13" font-weight="600" fill="#8a7d5c" stroke="#f4efe1" stroke-width="3" paint-order="stroke">' + a[1] + '</text>'; });
+  s += '</g>';
+  // chosen cities: numbered badges with labels placed to avoid overlaps
+  var boxes = [];
+  function hits(b) { return boxes.some(function (q) { return b.x < q.x + q.w && b.x + b.w > q.x && b.y < q.y + q.h && b.y + b.h > q.y; }); }
+  var pts = o.chosen.map(function (c) { var p = mapXY(c.lon, c.lat); boxes.push({ x: p[0] - 11, y: p[1] - 11, w: 22, h: 22 }); return p; });
+  o.chosen.forEach(function (c, i) {
+    var p = pts[i], text = c.en + " " + c.zh + (o.value ? "  " + o.value(c) : ""), w = text.length * 7.2 + 8, h = 18;
+    var tries = [[p[0] + 14, p[1] - h / 2, "start"], [p[0] - 14 - w, p[1] - h / 2, "end"], [p[0] - w / 2, p[1] - 14 - h, "middle"], [p[0] - w / 2, p[1] + 14, "middle"], [p[0] + 14, p[1] - h - 6, "start"], [p[0] + 14, p[1] + 6, "start"]];
+    var pick = tries[0];
+    for (var k = 0; k < tries.length; k++) { var b = { x: tries[k][0], y: tries[k][1], w: w, h: h }; if (!hits(b) && b.x > 0 && b.x + w < M.W) { pick = tries[k]; break; } }
+    boxes.push({ x: pick[0], y: pick[1], w: w, h: h });
+    var tx = pick[2] === "start" ? pick[0] + 2 : pick[2] === "end" ? pick[0] + w - 2 : pick[0] + w / 2;
+    s += '<text x="' + tx + '" y="' + (pick[1] + 14) + '" text-anchor="' + pick[2] + '" font-size="14" font-weight="700" fill="#1d1d1f" stroke="#fff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">' + esc(text) + '</text>';
+  });
+  o.chosen.forEach(function (c, i) {
+    var p = pts[i], home = c.id === o.home;
+    s += '<g class="mapdot" data-c="' + c.id + '" style="cursor:pointer"><circle cx="' + p[0] + '" cy="' + p[1] + '" r="11" fill="' + (home ? "#d9612b" : "#1f5fae") + '" stroke="#fff" stroke-width="2"/><text x="' + p[0] + '" y="' + (p[1] + 4.5) + '" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">' + (i + 1) + '</text></g>';
+  });
+  return s + '</svg>';
+}
+function badge(i, home) { return '<span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:' + (home ? "#d9612b" : "#1f5fae") + ';color:#fff;font-size:18px;font-weight:700;margin-right:8px;vertical-align:2px">' + (i + 1) + '</span>'; }
+
 function climateWorld(out, note) {
   var cities = chosenCities(), m = opts.cMeasure, idx = m === "hi" ? 0 : m === "lo" ? 1 : 2, now = new Date().getMonth();
   if (!cities.length) { out.innerHTML = '<div class="empty">No cities chosen. Pick some in Choose cities. 请选择城市。</div>'; return; }
@@ -740,7 +801,8 @@ function climateWorld(out, note) {
   var mx = Math.max.apply(null, all), mn = Math.min.apply(null, all.concat([0]));
   var color = m === "hi" ? "#d9612b" : m === "lo" ? "#1f5fae" : "#2f8a4c";
   var html = '<div class="cgrid">';
-  cities.forEach(function (c) {
+  var homeId = homeCity().id;
+  cities.forEach(function (c, ci) {
     var hot = 0, cold = 0, wet = 0, total = 0;
     c.months.forEach(function (v, i) {
       if (v[0] > c.months[hot][0]) hot = i;
@@ -754,11 +816,14 @@ function climateWorld(out, note) {
       series: [{ name: "", color: color }]
     });
     var est = /Open-Meteo/.test(c.source || "") && !/rain from Open-Meteo/.test(c.source || "") ? ' · <span title="No long-term station record was available">estimated from a weather model 模型估计</span>' : "";
-    html += '<div class="ccard"><h3>' + cityName(c) + '</h3>' + (c.lat < 0 ? '<div style="font-size:16px;color:var(--warm);font-weight:600">Southern Hemisphere 南半球' + est + '</div>' : '<div style="font-size:16px;color:var(--muted)">Northern Hemisphere 北半球' + est + '</div>') + chart +
+    html += '<div class="ccard"><h3>' + badge(ci, c.id === homeId) + cityName(c) + '</h3>' + (c.lat < 0 ? '<div style="font-size:16px;color:var(--warm);font-weight:600">Southern Hemisphere 南半球' + est + '</div>' : '<div style="font-size:16px;color:var(--muted)">Northern Hemisphere 北半球' + est + '</div>') + chart +
       '<div class="facts"><span>Hottest month 最热: <b>' + MONTHS_EN[hot] + '</b>, highs ' + r0(c.months[hot][0]) + ' °C</span><span>Coldest month 最冷: <b>' + MONTHS_EN[cold] + '</b>, lows ' + r0(c.months[cold][1]) + ' °C</span>' +
       '<span>Wettest month 最湿: <b>' + MONTHS_EN[wet] + '</b></span><span>Rain in a year 年降水: <b>' + total + ' mm</b></span></div></div>';
   });
-  out.innerHTML = '<div style="font-size:24px;font-weight:700;margin-bottom:12px">' + (m === "hi" ? "Average high temperature each month (°C) 每月平均最高气温" : m === "lo" ? "Average low temperature each month (°C) 每月平均最低气温" : "Rain and snow each month (mm) 每月降水量") + '</div>' + html + '</div>';
+  var unit = m === "rain" ? " mm" : "°";
+  var mapHtml = '<div class="panel" style="margin-bottom:18px;padding:16px"><div style="font-size:22px;font-weight:700;margin:0 0 8px">Where are our cities? 我们的城市在哪里？ <span style="font-weight:500;color:var(--muted);font-size:19px">Number = card below. Value = ' + (m === "hi" ? "average high" : m === "lo" ? "average low" : "rain") + ' in ' + MONTHS_EN[now] + ' ' + (now + 1) + '月</span></div>' +
+    worldMap({ chosen: cities, home: homeId, value: function (c) { return Math.round(c.months[now][idx]) + unit; }, maxH: 600 }) + '</div>';
+  out.innerHTML = mapHtml + '<div style="font-size:24px;font-weight:700;margin-bottom:12px">' + (m === "hi" ? "Average high temperature each month (°C) 每月平均最高气温" : m === "lo" ? "Average low temperature each month (°C) 每月平均最低气温" : "Rain and snow each month (mm) 每月降水量") + '</div>' + html + '</div>';
   note.textContent = "All graphs use the same scale, so you can compare them. The shaded month is this month. Data: long-term averages from weather stations (Meteostat), mostly 1991–2020.";
 }
 
@@ -783,7 +848,7 @@ function climateYear(out, note) {
 }
 
 function fold(t) { return (t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
-var citySearch = "", pickingHome = false;
+var citySearch = "", pickingHome = false, citySearchNote = "";
 function climateChoose(out, note) {
   var chosen = chosenCities().map(function (c) { return c.id; }), home = homeCity().id;
   function chip(c, extra) {
@@ -794,13 +859,15 @@ function climateChoose(out, note) {
     '<div class="chips">' + chosenCities().map(function (c) { return chip(c, " ✕"); }).join("") + '</div>' +
     '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><button class="btn' + (pickingHome ? " primary" : "") + '" id="homePick">' + (pickingHome ? "Now tap the home city 现在点击本地城市" : "Change home city 更改本地城市") + '</button>' +
     '<button class="btn" id="citiesReset">Reset 恢复默认</button></div></div>' +
-    '<div class="panel" style="margin-top:18px"><h3 style="margin:0 0 10px;font-size:24px">Add a city 添加城市</h3>' +
-    '<input id="cityQ" type="search" placeholder="Type a city or country 输入城市或国家" value="' + citySearch.replace(/"/g, "&quot;") + '" style="font:inherit;font-size:24px;padding:12px 18px;width:min(720px,100%);border:2px solid var(--line);border-radius:14px">' +
+    '<div class="panel" style="margin-top:18px"><h3 style="margin:0 0 6px;font-size:24px">Add a city 添加城市</h3>' +
+    '<div style="font-size:19px;color:var(--muted);margin-bottom:10px">Tap a gray dot on the map, or search by name. 点击地图上的灰点，或者搜索。</div>' +
+    '<div id="cityMap"></div>' +
+    '<input id="cityQ" type="search" placeholder="Type a city or country 输入城市或国家" value="' + citySearch.replace(/"/g, "&quot;") + '" style="font:inherit;font-size:24px;padding:12px 18px;width:min(720px,100%);border:2px solid var(--line);border-radius:14px;margin-top:14px">' +
     '<div id="cityResults"></div></div>';
   out.innerHTML = html;
   var q = $("cityQ");
   function results() {
-    var t = fold(citySearch.trim()), box = $("cityResults"), list;
+    var t = fold(citySearch.trim()), box = $("cityResults"), list, matches = {};
     if (!t) {
       var curated = CITIES.filter(function (c) { return !/^g\d/.test(c.id); });
       var regions = [];
@@ -808,20 +875,24 @@ function climateChoose(out, note) {
       box.innerHTML = '<div style="font-size:19px;color:var(--muted);margin-top:12px">' + CITIES.length + ' cities to choose from. Some ideas 一些建议:</div>' +
         regions.map(function (rg) { return '<h3 class="region">' + rg + '</h3><div class="chips">' + curated.filter(function (c) { return c.region === rg; }).map(function (c) { return chip(c); }).join("") + '</div>'; }).join("");
     } else {
-      list = CITIES.filter(function (c) { return fold(c.en).indexOf(t) >= 0 || (c.zh || "").indexOf(citySearch.trim()) >= 0 || fold(c.country).indexOf(t) >= 0; }).slice(0, 40);
+      list = CITIES.filter(function (c) { return fold(c.en).indexOf(t) >= 0 || (c.zh || "").indexOf(citySearch.trim()) >= 0 || fold(c.country).indexOf(t) >= 0; });
+      list.forEach(function (c) { matches[c.id] = true; });
+      list = list.slice(0, 40);
       box.innerHTML = list.length ? '<div class="chips" style="margin-top:14px">' + list.map(function (c) { return chip(c, c.country ? ' <span style="font-weight:500;opacity:.7">· ' + c.country + '</span>' : ""); }).join("") + '</div>'
         : '<div style="font-size:20px;color:var(--muted);margin-top:14px">No city found. Try the nearest big city or the capital. 没有找到，试试附近的大城市或首都。</div>';
     }
     wire(box);
+    $("cityMap").innerHTML = worldMap({ chosen: chosenCities(), home: home, dots: CITIES, matches: matches, maxH: 620 });
+    wire($("cityMap"));
   }
   function wire(root) {
-    var chips = root.querySelectorAll(".chip");
+    var chips = root.querySelectorAll(".chip, .mapdot");
     for (var i = 0; i < chips.length; i++) chips[i].onclick = function () {
       var id = this.getAttribute("data-c");
       if (pickingHome) { pickingHome = false; setPref("home", id); if (chosen.indexOf(id) < 0 && chosen.length < 9) { chosen.push(id); setPref("cities", chosen.join(",")); } renderClimate(); return; }
       var k = chosen.indexOf(id);
       if (k >= 0) { if (chosen.length > 1) chosen.splice(k, 1); }
-      else if (chosen.length < 9) chosen.push(id);
+      else if (chosen.length < 9) { chosen.push(id); var nc = cityById(id); if (nc) citySearchNote = "Added 已添加: " + cityName(nc) + (nc.country ? " · " + nc.country : ""); }
       else { note.textContent = "Up to 9 cities. Remove one first. 最多9个城市，请先删除一个。"; return; }
       setPref("cities", chosen.join(","));
       var y = document.querySelector("main").scrollTop;
@@ -834,6 +905,7 @@ function climateChoose(out, note) {
   q.oninput = function () { citySearch = q.value; results(); };
   $("homePick").onclick = function () { pickingHome = !pickingHome; renderClimate(); };
   $("citiesReset").onclick = function () { setPref("cities", ""); setPref("home", ""); citySearch = ""; pickingHome = false; renderClimate(); };
+  if (citySearchNote) { note.innerHTML = '<b style="color:var(--green);font-size:22px">' + esc(citySearchNote) + '</b>'; citySearchNote = ""; return; }
   note.textContent = "Each panel keeps its own cities. Climate data: long-term averages from the nearest official weather station (Meteostat), mostly 1991–2020.";
 }
 
